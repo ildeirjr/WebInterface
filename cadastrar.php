@@ -51,7 +51,7 @@
 		</div>
 		<main class="mdl-layout__content mdl-color--grey-100">
 			<div class="cadastro">
-				<form action="#" id="form_cadastro" method="post">
+				<form action="#" enctype="application/json" id="form_cadastro" method="post">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 				    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="codigo">
 				    <label class="mdl-textfield__label" for="codigo">Código</label>

@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-lime.min.css" />
 	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="style.css">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 </head>
@@ -85,7 +86,7 @@
 
 					<ul class="demo-list-two mdl-list">
 						  <li class="mdl-list__item mdl-list__item--two-line">
-							<img src="http://localhost:8080/WebUbspaces/photos/thumbs/<?=$value['foto']?>" width="50" height="50">
+							<img src="http://localhost:8080/WebUbspaces/photos/thumbs/<?=$value['foto']?>" class="thumb" width="50" height="50">
 						    <span class="mdl-list__item-primary-content">
 						      <!-- <i class="material-icons mdl-list__item-avatar">person</i> -->
 						      <span><?=$value['nome']?></span>
@@ -107,4 +108,7 @@
 		</main>
 	</div>
 </body>
+
+<script src="scripts/imgThumb.js"></script>
+
 </html>
