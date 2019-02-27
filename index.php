@@ -1,114 +1,173 @@
+<?php
+
+session_start();
+if(isset($_SESSION['token'])){
+  header("Location:home.php");
+}
+
+?>
+
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Ubspaces</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-lime.min.css" />
-	<link rel="stylesheet" href="styles.css">
-	<link rel="stylesheet" href="style.css">
-	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-</head>
-<body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
-		<header class="mdl-layout__header">
-			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title">Ubspaces</span>
-				<div class="mdl-layout-spacer"></div>
-				<nav class="mdl-navigation">
-					<a href="#" class="mdl-navigation__link">Link 1</a>
-					<a href="#" class="mdl-navigation__link">Link 2</a>
-					<a href="#" class="mdl-navigation__link">Link 3</a>
-				</nav>
-			</div>
-		</header>
-		<div class="mdl-layout__drawer">
-			<header class="demo-drawer-header">
-	          <img src="images/user.jpg" class="demo-avatar">
-	          <div class="demo-avatar-dropdown">
-	            <span>hello@example.com</span>
-	            <div class="mdl-layout-spacer"></div>
-	            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-	              <i class="material-icons" role="presentation">arrow_drop_down</i>
-	              <span class="visuallyhidden">Accounts</span>
-	            </button>
-	            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-	              <li class="mdl-menu__item">hello@example.com</li>
-	              <li class="mdl-menu__item">info@example.com</li>
-	              <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-	            </ul>
-	          </div>
-        	</header>
-			<nav class="mdl-navigation">
-					<a href="cadastrar.php" class="mdl-navigation__link">Cadastrar objetos</a>
-					<a href="#listar" class="mdl-navigation__link">Listar objetos</a>
-					<a href="#" class="mdl-navigation__link">Objetos excluídos</a>
-			</nav>
-		</div>
-		<main class="mdl-layout__content mdl-color--grey-100" id="listar">
-			<?php
+<html lang="en">
 
-				$curl = curl_init();
-				curl_setopt($curl, CURLOPT_URL, 'localhost:8080/WebUbspaces/listall/?mode=non_deleted&num_page=0&window_size=10');
-				$header = array(
-    					'Authorization: 1gdh87efuhwi'
-							);
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-				$result = curl_exec($curl);
-				curl_close($curl);
+  <head>
 
-				$jsonObject = json_decode($result, true);
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-				foreach ($jsonObject as $item => $value) {
+    <title>Ubspaces - Página inicial</title>
 
-					$date = date_create($value['data_entrada']);
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-					$image_url = "localhost:8080/WebUbspaces/photos/thumbs/".$value['foto'];
-					$ch = curl_init();
-					$timeout = 0;
-					curl_setopt ($ch, CURLOPT_URL, $image_url);
-					curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-					// Getting binary data
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
-					$image = curl_exec($ch);
-					curl_close($ch);
+    <!-- Custom styles for this template -->
+    <link href="css/freelancer.min.css" rel="stylesheet">
 
-					// output to browser
-					//header("Content-type: image/jpeg");
-					//print $image;
+  </head>
 
-					?>
+  <body id="page-top">
 
-					<ul class="demo-list-two mdl-list">
-						  <li class="mdl-list__item mdl-list__item--two-line">
-							<img src="http://localhost:8080/WebUbspaces/photos/thumbs/<?=$value['foto']?>" class="thumb" width="50" height="50">
-						    <span class="mdl-list__item-primary-content">
-						      <!-- <i class="material-icons mdl-list__item-avatar">person</i> -->
-						      <span><?=$value['nome']?></span>
-						      <span class="mdl-list__item-sub-title">Código: <?=$value['codigo']?></span>
-						    </span>
-						    <span class="mdl-list__item-secondary-content">
-						      <span class="mdl-list__item-secondary-info"><?=date_format($date, 'd/m/Y')?></span>
-						    </span>
-						  </li>
-					</ul>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Ubspaces</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Pesquisar</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Sobre</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="login.php">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-				<?php
-			}
+    <!-- Header -->
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container">
+        <img class="img-fluid mb-5 d-block mx-auto" src="img/icone_ubspaces_v3.png" alt="" height="400px" width="400px">
+        <h1 class="text-uppercase mb-0">Ubspaces</h1>
+        <h2 class="font-weight-light mb-0" style="margin: 40px">Bem-vindo à página inicial!</h2>
+      </div>
+    </header>
 
-			?>
+    <!-- Portfolio Grid Section -->
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-secondary mb-0">Pesquisar</h2>
+        <h3 class="text-center font-weight-light mb-0" style="margin: 40px">Comece a sua busca por objetos informando os dados abaixo.</h3>
+        <div class="row" style="margin-top: 40px">
+	        <div class="col-lg-8 mx-auto">
+	          <form name="searchObject" id="searchForm" novalidate="novalidate">
+	              <div class="control-group">
+	                <div class="form-group controls mb-0 pb-2">
+	                  <label>Nome do objeto</label>
+	                  <input class="form-control" id="name" type="text" required="required" data-validation-required-message="Please enter your email address.">
+	                  <p class="help-block text-danger"></p>
+	                </div>
+	              </div>
+	              <div class="row">
+	              	<div class="col-lg-6">
+	              		<div class="control-group">
+	                		<div class="form-group controls mb-0 pb-2">
+	                  			<label>Data inicial</label>
+	                  			<input class="form-control" id="start_date" type="date" placeholder="Data inicial" required="required" data-validation-required-message="Please enter your phone number.">
+	                  			<p class="help-block text-danger"></p>
+	                		</div>
+	              		</div>
+	              	</div>
+	              	<div class="col-lg-6">
+	              		<div class="control-group">
+	                		<div class="form-group controls mb-0 pb-2">
+	                  			<label>Data final</label>
+	                  			<input class="form-control" id="final_date" type="date" placeholder="Data final" required="required" data-validation-required-message="Please enter your phone number.">
+	                  			<p class="help-block text-danger"></p>
+	                		</div>
+	              		</div>
+	              	</div>
+	              </div>
+	              
+	              <br>
+	              <div id="success"></div>
+	              <div class="form-group">
+	                <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Pesquisar</button>
+	              </div>
+	            </form>
+	        </div>
+    	</div>
+      </div>
+    </section>
 
+    <!-- About Section -->
+    <section class="bg-primary text-white mb-0" id="about">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-white">Sobre</h2>
+        <div class="row" style="margin-top: 40px">
+          <div class="col-lg-4 ml-auto">
+            <p class="lead">Ubspaces é um sistema de gerenciamento de informações de objetos presentes no espaço físico. Com ele, é possível obter informações sobre um objeto diretamente em um aplicativo móvel, bem como editá-las conforme for necessário.</p>
+          </div>
+          <div class="col-lg-4 mr-auto">
+            <p class="lead">Este sistema foi feito tomando como base os objetos de patrimônio do Instituto de Ciências Exatas e Aplicadas (ICEA) da Universidade Federal de Ouro Preto (UFOP).</p>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <a class="btn btn-xl btn-outline-light" href="#">
+            <i class="fa fa-download mr-2"></i>
+            Baixe o app!
+          </a>
+        </div>
+      </div>
+    </section>
 
+    <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Universidade Federal de Ouro Preto | Laboratório iMobilis</small>
+      </div>
+    </div>
 
-		</main>
-	</div>
-</body>
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-to-top d-lg-none position-fixed ">
+      <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
 
-<script src="scripts/imgThumb.js"></script>
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/freelancer.min.js"></script>
+
+  </body>
 
 </html>

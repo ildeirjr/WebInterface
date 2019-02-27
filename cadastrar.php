@@ -1,3 +1,7 @@
+<?php
+include "requests/token_validation.php";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
