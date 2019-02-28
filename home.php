@@ -39,7 +39,6 @@ include "requests/token_validation.php";
 	            </button>
 	            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
 	              <a href="requests/logout.php"><li class="mdl-menu__item">Sair</li></a>
-	              <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
 	            </ul>
 	          </div>
         	</header>
@@ -87,19 +86,23 @@ include "requests/token_validation.php";
 
 					?>
 
+					
 					<ul class="demo-list-two mdl-list">
-						  <li class="mdl-list__item mdl-list__item--two-line">
+						<a href="showObject.php?id=<?=$value['codigo']?>">
+							<li class="mdl-list__item mdl-list__item--two-line">
 							<img src="http://localhost:8080/WebUbspaces/photos/thumbs/<?=$value['foto']?>" class="thumb" width="50" height="50">
-						    <span class="mdl-list__item-primary-content">
-						      <!-- <i class="material-icons mdl-list__item-avatar">person</i> -->
-						      <span><?=$value['nome']?></span>
-						      <span class="mdl-list__item-sub-title">Código: <?=$value['codigo']?></span>
-						    </span>
-						    <span class="mdl-list__item-secondary-content">
-						      <span class="mdl-list__item-secondary-info"><?=date_format($date, 'd/m/Y')?></span>
-						    </span>
-						  </li>
+								<span class="mdl-list__item-primary-content">
+									<!-- <i class="material-icons mdl-list__item-avatar">person</i> -->
+									<span><?=$value['nome']?></span>
+									<span class="mdl-list__item-sub-title">Código: <?=$value['codigo']?></span>
+								</span>
+								<span class="mdl-list__item-secondary-content">
+									<span class="mdl-list__item-secondary-info"><?=date_format($date, 'd/m/Y')?></span>
+								</span>
+							</li>
+						</a>
 					</ul>
+					
 
 				<?php
 			}

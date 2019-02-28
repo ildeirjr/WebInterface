@@ -1,5 +1,7 @@
 <?php
 
+include '../UbspacesURL.php';
+
 session_start();
 
 if(isset($_SESSION['token'])){
@@ -7,7 +9,7 @@ if(isset($_SESSION['token'])){
     $userToken = $_SESSION['token'];
 
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, 'localhost:8080/WebUbspaces/clearUserToken/');
+    curl_setopt($curl, CURLOPT_URL, UbspacesURL::$URL.'clearUserToken/');
     $header = array(
             'Authorization: '.$userToken
                 );

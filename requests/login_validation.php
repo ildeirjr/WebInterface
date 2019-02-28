@@ -1,5 +1,7 @@
 <?php
 
+include '../UbspacesURL.php';
+
 if(isset($_POST)){
     session_start();
 
@@ -8,7 +10,7 @@ if(isset($_POST)){
     echo($jsonObj);
 
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, 'localhost:8080/WebUbspaces/validateLogin/');
+    curl_setopt($curl, CURLOPT_URL, UbspacesURL::$URL.'validateLogin/');
     $header = array(
             'Authorization: 1gdh87efuhwi',
             'Content-Type: application/json',
@@ -33,7 +35,7 @@ if(isset($_POST)){
         }
 
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'localhost:8080/WebUbspaces/getOperator/?id='.$_SESSION['idUser']);
+        curl_setopt($curl, CURLOPT_URL, UbspacesURL::$URL.'getOperator/?id='.$_SESSION['idUser']);
         $header = array(
                 'Authorization: '.$_SESSION['token']
                     );

@@ -34,16 +34,14 @@ include "requests/token_validation.php";
 			<header class="demo-drawer-header">
 	          <img src="images/user.jpg" class="demo-avatar">
 	          <div class="demo-avatar-dropdown">
-	            <span>hello@example.com</span>
+	            <span><?=$_SESSION['nome']?></span>
 	            <div class="mdl-layout-spacer"></div>
 	            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
 	              <i class="material-icons" role="presentation">arrow_drop_down</i>
 	              <span class="visuallyhidden">Accounts</span>
 	            </button>
 	            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-	              <li class="mdl-menu__item">hello@example.com</li>
-	              <li class="mdl-menu__item">info@example.com</li>
-	              <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
+								<a href="requests/logout.php"><li class="mdl-menu__item">Sair</li></a>
 	            </ul>
 	          </div>
         	</header>
@@ -55,7 +53,7 @@ include "requests/token_validation.php";
 		</div>
 		<main class="mdl-layout__content mdl-color--grey-100">
 			<div class="cadastro">
-				<form action="#" enctype="application/json" id="form_cadastro" method="post">
+				<form id="form_cadastro" method="post">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 				    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="codigo">
 				    <label class="mdl-textfield__label" for="codigo">Código</label>

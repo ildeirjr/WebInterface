@@ -1,3 +1,22 @@
 .cadastro {
   margin: 50px;
 }
+.show-object-container {
+  padding: 20px;
+}
+.show-object-item {
+  margin: 20px;
+}
+.show-object-item-primary {
+  color: black;
+}
+.show-object-item-secondary {
+  color: grey;
+}
+.show-object-image {
+  padding: 20px;
+  text-align: center;
+}
+.object-image {
+  max-width: 70%;
+}
