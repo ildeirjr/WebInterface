@@ -23,12 +23,8 @@ $jsonObj = getObject($_GET['id']);
 				<span class="mdl-layout-title">Visualizar objeto</span>
 				<div class="mdl-layout-spacer"></div>
 				<nav class="mdl-navigation">
-					<a href="#" class="mdl-navigation__link" id="submit-button">Confirmar</a>
-					<script type="text/javascript">
-						document.getElementById("submit-button").onclick = function() {
-							document.getElementById("form_cadastro").submit();
-						}
-					</script>
+                    <a href="#" class="mdl-navigation__link"><i class="material-icons">delete</i></a>
+                    <a href="#" class="mdl-navigation__link"><i class="material-icons">edit</i></a>
 				</nav>
 			</div>
 		</header>
@@ -54,84 +50,97 @@ $jsonObj = getObject($_GET['id']);
 			</nav>
 		</div>
 		<main class="mdl-layout__content mdl-color--grey-100">
-            <div class="show-object-image">
-                <img class="object-image" src="http://<?=UbspacesURL::$URL?>photos/<?=$jsonObj->foto?>" alt="">
-            </div>
-			<div class="show-object-container">
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Código
+            <div class="show-object-container">
+                <div class="show-object-text">
+                    <h3 id="object-name-title"><?=$jsonObj->nome?></h3>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Código
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=$jsonObj->codigo?>
+                        </div>
                     </div>
-                    <div class="show-object-item-secondary">
-                        <?=$jsonObj->codigo?>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Estado
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=$jsonObj->estado?>
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Descrição
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=$jsonObj->descricao?>
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Data de entrada
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=date_format(date_create($jsonObj->data_entrada), 'd/m/Y')?>
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Unidade acadêmica
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=$jsonObj->unidade?>
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Bloco/Prédio
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=$jsonObj->bloco?>
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Sala
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=$jsonObj->sala?>
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Recebedor
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=$jsonObj->quem_recebeu?>
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Nota fiscal
+                        </div>
+                        <div class="show-object-item-secondary">
+                            <?=$jsonObj->nota?>
+                        </div>
                     </div>
                 </div>
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Estado
-                    </div>
-                    <div class="show-object-item-secondary">
-                        <?=$jsonObj->estado?>
-                    </div>
-                </div>
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Descrição
-                    </div>
-                    <div class="show-object-item-secondary">
-                        <?=$jsonObj->descricao?>
-                    </div>
-                </div>
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Data de entrada
-                    </div>
-                    <div class="show-object-item-secondary">
-                        <?=date_format(date_create($jsonObj->data_entrada), 'd/m/Y')?>
-                    </div>
-                </div>
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Unidade acadêmica
-                    </div>
-                    <div class="show-object-item-secondary">
-                        <?=$jsonObj->unidade?>
-                    </div>
-                </div>
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Bloco/Prédio
-                    </div>
-                    <div class="show-object-item-secondary">
-                        <?=$jsonObj->bloco?>
-                    </div>
-                </div>
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Sala
-                    </div>
-                    <div class="show-object-item-secondary">
-                        <?=$jsonObj->sala?>
-                    </div>
-                </div>
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Recebedor
-                    </div>
-                    <div class="show-object-item-secondary">
-                        <?=$jsonObj->quem_recebeu?>
-                    </div>
-                </div>
-                <div class="show-object-item">
-                    <div class="show-object-item-primary">
-                        Nota fiscal
-                    </div>
-                    <div class="show-object-item-secondary">
-                        <?=$jsonObj->nota?>
-                    </div>
+                <div class="show-object-image">
+                    <img class="object-image" src="http://<?=UbspacesURL::$URL?>photos/<?=$jsonObj->foto?>" alt="">
                 </div>
             </div>
 		</main>
 	</div>
 </body>
+
+<script>
+    let imgArray = document.querySelectorAll(".object-image");
+    imgArray.forEach(element => {
+        if(element.getAttribute("src").includes("null.jpg")){
+            element.setAttribute("src","http://<?php echo UbspacesURL::$URL?>photos/default.jpg");
+        }
+    });
+</script>
+
 </html>
