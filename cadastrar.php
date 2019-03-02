@@ -21,10 +21,10 @@ include "requests/token_validation.php";
 				<span class="mdl-layout-title">Cadastrar objeto</span>
 				<div class="mdl-layout-spacer"></div>
 				<nav class="mdl-navigation">
-					<a href="#" class="mdl-navigation__link" id="submit-button">Confirmar</a>
+					<a class="mdl-navigation__link" id="submit-button">Confirmar</a>
 					<script type="text/javascript">
 						document.getElementById("submit-button").onclick = function() {
-							document.getElementById("form_cadastro").submit();
+							dataValidation();
 						}
 					</script>
 				</nav>
@@ -51,42 +51,59 @@ include "requests/token_validation.php";
 					<a href="#" class="mdl-navigation__link">Objetos excluídos</a>
 			</nav>
 		</div>
+
+		<dialog class="mdl-dialog">
+			<h4 class="mdl-dialog__title">Allow data collection?</h4>
+			<div class="mdl-dialog__content">
+				<p id="dialog-msg">
+					Allowing us to collect data will let us get you the information you want faster.
+				</p>
+			</div>
+			<div class="mdl-dialog__actions">
+				<button type="button" class="mdl-button">OK</button>
+				<button type="button" class="mdl-button close">Disagree</button>
+			</div>
+  	</dialog>
+
 		<main class="mdl-layout__content mdl-color--grey-100">
 			<div class="cadastro">
-				<form id="form_cadastro" method="post">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-				    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="codigo">
+				<form action="requests/add_object.php" name="form-cadastro" method="post">
+					<div id="id-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+				    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="codigo">
 				    <label class="mdl-textfield__label" for="codigo">Código</label>
-				    <span class="mdl-textfield__error">Esta entrada não é um número!</span>
+				    <span id="id-error-msg" class="mdl-textfield__error">Este campo só pode conter números</span>
 				  </div>
 
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-				    <input class="mdl-textfield__input" type="text" id="nome">
+				  <div id="name-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+				    <input class="mdl-textfield__input" type="text" id="nome" name="nome">
 				    <label class="mdl-textfield__label" for="nome">Nome</label>
+						<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-				    <textarea class="mdl-textfield__input" type="text" rows= "2" id="descricao" ></textarea>
+					<div id="description-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+				    <textarea class="mdl-textfield__input" type="text" rows= "2" name="descricao" ></textarea>
 				    <label class="mdl-textfield__label" for="descricao">Descrição</label>
 				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-				    <input class="mdl-textfield__input" type="text" id="data">
+					<div id="date-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+				    <input class="mdl-textfield__input" type="text" name="data_entrada" id="date">
 				    <label class="mdl-textfield__label" for="data">Data de entrada</label>
+						<span id="date-error-msg" class="mdl-textfield__error">Data inválida</span>
 				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-				    <input class="mdl-textfield__input" type="text" id="quem_recebeu">
+					<div id="responsible-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+				    <input class="mdl-textfield__input" type="text" name="quem_recebeu">
 				    <label class="mdl-textfield__label" for="quem_recebeu">Recebedor</label>
+						<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-				    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="nota">
+					<div id="note-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+				    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="nota">
 				    <label class="mdl-textfield__label" for="nota">Nota fiscal</label>
-						<span class="mdl-textfield__error">Esta entrada não é um número!</span>
+						<span id="note-error-msg" class="mdl-textfield__error">Este campo só pode conter números</span>
 				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+					<div id="unity-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 				    <select class="mdl-textfield__input" id="unity" name="octane">
 				      <option value="Centro de Educação Aberta e a Distância (CEAD)">Centro de Educação Aberta e a Distância (CEAD)</option>
 				      <option value="87">Centro Desportivo da UFOP (CEDUFOP)</option>
@@ -104,17 +121,18 @@ include "requests/token_validation.php";
 				    <label class="mdl-textfield__label" for="unity">Unidade acadêmica</label>
 				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-				    <input class="mdl-textfield__input" type="text" id="bloco">
+					<div id="block-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+				    <input class="mdl-textfield__input" type="text" name="bloco">
 				    <label class="mdl-textfield__label" for="bloco">Bloco/Prédio</label>
 				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-				    <input class="mdl-textfield__input" type="text" id="sala">
+					<div id="room-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+				    <input class="mdl-textfield__input" type="text" name="sala">
 				    <label class="mdl-textfield__label" for="sala">Sala</label>
+						<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+					<div id="state-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 				    <select class="mdl-textfield__input" id="state" name="octane">
 				      <option value="Normal">Normal</option>
 				      <option value="Quebrado">Quebrado</option>
@@ -127,4 +145,39 @@ include "requests/token_validation.php";
 		</main>
 	</div>
 </body>
+
+<script type="text/javascript">
+	let inputData = document.querySelector("#date");
+	let divData = document.querySelector("#date-field");
+	inputData.addEventListener('focusin', function(){
+		inputData.setAttribute("type","date");
+		divData.addEventListener('focusout', function(){
+			 	divData.setAttribute("class","mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col is-upgraded is-focused");
+		});
+	});
+</script>
+
+<script>
+	let issetStatus = "<?php echo(isset($_GET['status']))?>";
+	if(issetStatus == '1'){
+		let requestStatus = "<?php echo $_GET['status'] ?>"
+		let dialog = document.querySelector("dialog");
+		let dialogTitle = document.querySelector(".mdl-dialog__title");
+		let dialogContent = document.querySelector("#dialog-msg");
+		if(requestStatus == 'duplicateEntry'){
+			dialogTitle.innerHTML = "Erro";
+			dialogContent.innerHTML = "O código informado já existe";
+		} else if(requestStatus == 'ok'){
+			dialogTitle.innerHTML = "Sucesso!";
+			dialogContent.innerHTML = "Objeto cadastrado";
+		}
+		dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+		dialog.showModal();
+	}
+</script>
+
+<script src="scripts/objectFieldsValidation.js" ></script>
+
 </html>
