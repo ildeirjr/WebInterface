@@ -9,7 +9,7 @@ if(isset($_POST)){
     $jsonObj = json_encode($_POST);
 
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, UbspacesURL::$URL.'addObject/');
+    curl_setopt($curl, CURLOPT_URL, UbspacesURL::$URL.'uploadImg/');
     $header = array(
             'Authorization: '.$token,
             'Content-Type: application/json',
@@ -21,16 +21,7 @@ if(isset($_POST)){
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $result = curl_exec($curl);
     curl_close($curl);
-
-    if($result == '23000'){
-        //header("Location:../cadastrar.php?status=duplicateEntry");
-        echo "duplicate_id";
-    } else if($result == '00000'){
-        //header("Location:../cadastrar.php?status=ok");
-        echo "ok";
-    }
-    //echo($result);
-
+    echo($result);
 }
 
 ?>

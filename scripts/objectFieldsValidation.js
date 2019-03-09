@@ -1,3 +1,86 @@
+$('#form-cadastro').submit(function(e) {
+    e.preventDefault();
+
+    let that = $(this),
+        url =  'requests/add_object.php',
+        type = 'post',
+        data = {}
+        dataImg = {};
+    
+    that.find('[name]').each(function(index, value){
+        let that = $(this),
+            name = that.attr('name');
+            value = that.val();
+
+        data[name] = value;
+    });
+
+    if(data['foto'] != ""){
+        dataImg['nome'] = data['nome'] + "_" + data['codigo'] + ".jpg";
+        dataImg['img'] = data['base64_img'];
+        dataImg['imgThumb'] = data['base64_thumb'];
+        data['foto'] = dataImg['nome'];
+    } else {
+        data['foto'] = "null.jpg";
+    }
+
+    $.ajax({
+        url: url,
+        type: type,
+        data: data
+    }).done(function(response){
+
+        console.log(response);
+        let dialogTitle, dialogMsg;
+
+        if(response == "duplicate_id"){
+            dialogTitle = "Erro";
+            dialogMsg = "O código informado já existe";
+            showDialog(dialogTitle, dialogMsg);
+        } else if(response == "ok"){
+
+            if(data['foto'] != "null.jpg"){
+                //WITH IMAGE
+                console.log(data);
+                $.ajax({
+                    url: 'requests/upload_img.php',
+                    type: type,
+                    data: dataImg
+                }).done(function(response){
+                    if(response == "1"){
+                        dialogTitle = "Sucesso!";
+                        dialogMsg = "Objeto cadastrado no sistema";
+                        showDialog(dialogTitle, dialogMsg);
+                    } else {
+                        dialogTitle = "Erro";
+                        dialogMsg = "Falha ao carregar imagem";
+                        showDialog(dialogTitle, dialogMsg);
+                    }
+                });
+            } else {
+                //WITHOUT IMAGE
+                dialogTitle = "Sucesso!";
+                dialogMsg = "Objeto cadastrado no sistema";
+                showDialog(dialogTitle, dialogMsg);
+            }
+
+            
+        }
+        
+    });
+
+    function showDialog(dialogTitle, dialogMsg){
+        let dialog = document.querySelector("dialog");
+        document.querySelector(".close").addEventListener('click', function() {
+            dialog.close();
+        });
+
+        document.querySelector(".mdl-dialog__title").innerHTML = dialogTitle;
+        document.querySelector("#dialog-msg").innerHTML = dialogMsg;
+        dialog.showModal();
+    }
+});
+
 function dataValidation(){
 
     let idField = document.querySelector("#id-field");
@@ -57,6 +140,6 @@ function dataValidation(){
     });
 
     if(!hasInvalidField){
-        document.forms["form-cadastro"].submit();
+        $('#form-cadastro').submit();
     }
 }
