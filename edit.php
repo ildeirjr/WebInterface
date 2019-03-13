@@ -1,12 +1,15 @@
 <?php
 include "requests/token_validation.php";
+if(isset($_POST['json_str'])){
+    $jsonObj = json_decode($_POST['json_str']);
+}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Cadastrar objeto</title>
+	<title>Editar objeto</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-lime.min.css" />
 	<link rel="stylesheet" href="styles.css">
@@ -19,7 +22,7 @@ include "requests/token_validation.php";
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
 		<header class="mdl-layout__header">
 			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title">Cadastrar objeto</span>
+				<span class="mdl-layout-title">Editar objeto</span>
 				<div class="mdl-layout-spacer"></div>
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link" id="submit-button">Confirmar</a>
@@ -49,9 +52,9 @@ include "requests/token_validation.php";
 			<div class="cadastro">
 				<form id="form-cadastro" name="form-cadastro">
 					<div class="add-img-area">
-						<div id="add-img-container" class="add-img-container-without-img">
-							<h6 id="add-img-text">Selecione uma imagem</h6>
-							<img id="add-img" src="#" alt="">
+						<div id="add-img-container" class="add-img-container-with-img">
+							<h6 id="add-img-text" hidden>Selecione uma imagem</h6>
+                            <img id="add-img" src="http://<?= UbspacesURL::$URL ?>photos/<?= $jsonObj->foto ?>" alt="">
 							<button type="button" id="add-img-button" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
 								<i class="material-icons">photo_camera</i>
 							</button>
@@ -61,44 +64,45 @@ include "requests/token_validation.php";
 					
 
 						<div id="id-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="codigo">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="codigo" value="<?= $jsonObj->codigo ?>">
 							<label class="mdl-textfield__label" for="codigo">Código</label>
 							<span id="id-error-msg" class="mdl-textfield__error">Este campo só pode conter números</span>
 						</div>
 
 						<div id="name-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" id="nome" name="nome">
+							<input class="mdl-textfield__input" type="text" id="nome" name="nome" value="<?= $jsonObj->nome ?>">
 							<label class="mdl-textfield__label" for="nome">Nome</label>
 							<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 						</div>
 
 						<div id="description-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<textarea class="mdl-textfield__input" type="text" rows= "2" name="descricao" ></textarea>
+							<textarea class="mdl-textfield__input" type="text" rows= "2" name="descricao" value="<?= $jsonObj->descricao ?>"></textarea>
 							<label class="mdl-textfield__label" for="descricao">Descrição</label>
 						</div>
 
 						<div id="date-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" name="data_entrada" id="date">
+							<input class="mdl-textfield__input" type="date" name="data_entrada" id="date" value="<?= $jsonObj->data_entrada ?>">
 							<label class="mdl-textfield__label" for="data">Data de entrada</label>
 							<span id="date-error-msg" class="mdl-textfield__error">Data inválida</span>
 						</div>
 
 						<div id="responsible-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" name="quem_recebeu">
+							<input class="mdl-textfield__input" type="text" name="quem_recebeu" value="<?= $jsonObj->quem_recebeu ?>">
 							<label class="mdl-textfield__label" for="quem_recebeu">Recebedor</label>
 							<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 						</div>
 
 						<div id="note-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="nota">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="nota" value="<?= $jsonObj->nota ?>">
 							<label class="mdl-textfield__label" for="nota">Nota fiscal</label>
 							<span id="note-error-msg" class="mdl-textfield__error">Este campo só pode conter números</span>
 						</div>
 
 						<div id="unity-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<select class="mdl-textfield__input" id="unity" name="unidade">
+                                <option value="<?= $jsonObj->unidade ?>" selected><?= $jsonObj->unidade ?></option>
 								<option value="Centro de Educação Aberta e a Distância (CEAD)">Centro de Educação Aberta e a Distância (CEAD)</option>
-								<option value="87">Centro Desportivo da UFOP (CEDUFOP)</option>
+								<option value="Centro Desportivo da UFOP (CEDUFOP)">Centro Desportivo da UFOP (CEDUFOP)</option>
 								<option value="Escola de Direito, Turismo e Museologia (EDTM)">Escola de Direito, Turismo e Museologia (EDTM)</option>
 								<option value="Escola de Farmácia">Escola de Farmácia</option>
 								<option value="Escola de Minas">Escola de Minas</option>
@@ -114,18 +118,19 @@ include "requests/token_validation.php";
 						</div>
 
 						<div id="block-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" name="bloco">
+							<input class="mdl-textfield__input" type="text" name="bloco" value="<?= $jsonObj->bloco ?>">
 							<label class="mdl-textfield__label" for="bloco">Bloco/Prédio</label>
 						</div>
 
 						<div id="room-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" name="sala">
+							<input class="mdl-textfield__input" type="text" name="sala" value="<?= $jsonObj->sala ?>">
 							<label class="mdl-textfield__label" for="sala">Sala</label>
 							<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 						</div>
 
 						<div id="state-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<select class="mdl-textfield__input" id="state" name="estado">
+                                <option value="<?= $jsonObj->estado ?>"><?= $jsonObj->estado ?></option>
 								<option value="Normal">Normal</option>
 								<option value="Quebrado">Quebrado</option>
 								<option value="Consertado">Consertado</option>
@@ -135,22 +140,15 @@ include "requests/token_validation.php";
 						<input type="text" name="base64_img" value="" hidden>
 						<input type="text" name="base64_thumb" value="" hidden>
 						<input type="text" name="nome_usuario" value="<?= $_SESSION['idUser'] ?>" hidden>
+                        <input type="text" name="codigoAntigo" value="<?= $jsonObj->codigo ?>" hidden>
+                        <input type="text" name="fotoAntigo" value="<?= $jsonObj->foto ?>" hidden>
+                        <input type="text" name="imgDelete" value="false" hidden>
+                        <input type="text" name="imgRename" value="false" hidden>
 					</form>
 			</div>
 		</main>
 	</div>
 </body>
-
-<script type="text/javascript">
-	let inputData = document.querySelector("#date");
-	let divData = document.querySelector("#date-field");
-	inputData.addEventListener('focusin', function(){
-		inputData.setAttribute("type","date");
-		divData.addEventListener('focusout', function(){
-			 	divData.setAttribute("class","mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col is-upgraded is-focused");
-		});
-	});
-</script>
 
 <script>
 	var uploadButton = document.querySelector('#add-img-button');
@@ -167,18 +165,16 @@ include "requests/token_validation.php";
 		var file = imgInput.files[0];
 		var reader = new FileReader();
 
-		console.log(file);
-
 		if(file){
 			console.log("ENTROU NO IF");
 			reader.readAsBinaryString(file);
-		} else {
-			imgContainer.setAttribute("class", "add-img-container-without-img");
-			imgText.style.visibility = "visible";			
-			img.setAttribute("src","#");
 		}
 
 		reader.onload = function(){
+			if("<?php echo $jsonObj->foto ?>" != "null.jpg"){
+				document.forms["form-cadastro"]["imgDelete"].value = "true";
+			}
+			
 			let imgFile = new Image();
 			imgContainer.setAttribute("class", "add-img-container-with-img");
 			imgText.style.visibility = "hidden";
@@ -214,101 +210,10 @@ include "requests/token_validation.php";
 			}
 
 		}
-
 	}
 
 </script>
 
 <script src="scripts/objectFieldsValidation.js" ></script>
-
-<script>
-	$('#form-cadastro').submit(function(e) {
-		e.preventDefault();
-
-		let that = $(this),
-			url =  "http://<?php echo UbspacesURL::$URL ?>addObject/",
-			type = 'post',
-			header = {"Authorization": "<?php echo $_SESSION['token'] ?>"},
-			data = {},
-			dataImg = {};
-		
-		that.find('[name]').each(function(index, value){
-			let that = $(this),
-				name = that.attr('name');
-				value = that.val();
-
-			data[name] = value;
-		});
-
-		if(data['foto'] != ""){
-			dataImg['nome'] = data['nome'] + "_" + data['codigo'] + ".jpg";
-			dataImg['img'] = data['base64_img'];
-			dataImg['imgThumb'] = data['base64_thumb'];
-			data['foto'] = dataImg['nome'];
-		} else {
-			data['foto'] = "null.jpg";
-		}
-
-		console.log(header);
-
-		$.ajax({
-			url: url,
-			type: type,
-			headers: header,
-			data: data
-		}).done(function(response){
-
-			console.log(response);
-			let dialogTitle, dialogMsg;
-
-			if(response == "23000"){
-				dialogTitle = "Erro";
-				dialogMsg = "O código informado já existe";
-				showDialog(dialogTitle, dialogMsg);
-			} else if(response == "00000"){
-
-				if(data['foto'] != "null.jpg"){
-					//WITH IMAGE
-					console.log(data);
-					$.ajax({
-						url: 'http://<?php echo UbspacesURL::$URL ?>uploadImg/',
-						type: type,
-						headers: header,
-						data: dataImg
-					}).done(function(response){
-						if(response == "1"){
-							dialogTitle = "Sucesso!";
-							dialogMsg = "Objeto cadastrado no sistema";
-							showDialog(dialogTitle, dialogMsg);
-						} else {
-							dialogTitle = "Erro";
-							dialogMsg = "Falha ao carregar imagem";
-							showDialog(dialogTitle, dialogMsg);
-						}
-					});
-				} else {
-					//WITHOUT IMAGE
-					dialogTitle = "Sucesso!";
-					dialogMsg = "Objeto cadastrado no sistema";
-					showDialog(dialogTitle, dialogMsg);
-				}
-
-				
-			}
-			
-		});
-
-		function showDialog(dialogTitle, dialogMsg){
-			let dialog = document.querySelector("dialog");
-			document.querySelector(".close").addEventListener('click', function() {
-				dialog.close();
-			});
-
-			document.querySelector(".mdl-dialog__title").innerHTML = dialogTitle;
-			document.querySelector("#dialog-msg").innerHTML = dialogMsg;
-			dialog.showModal();
-		}
-	});
-</script>
 
 </html>

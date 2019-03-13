@@ -1,5 +1,5 @@
 <?php
-include "requests/token_validation.php";
+//include "requests/token_validation.php";
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +12,7 @@ include "requests/token_validation.php";
 	<link rel="stylesheet" href="styles.css">
 	<link rel="stylesheet" href="style.css">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 </head>
 <body>
@@ -28,73 +29,15 @@ include "requests/token_validation.php";
 			</div>
 		</header>
 		<?php include "drawer_menu.php"; ?>
-		<main class="mdl-layout__content mdl-color--grey-100" id="listar">
-			<?php
-
-				$curl = curl_init();
-				curl_setopt($curl, CURLOPT_URL, 'localhost:8080/WebUbspaces/listall/?mode=non_deleted&num_page=0&window_size=10');
-				$header = array(
-    					'Authorization: 1gdh87efuhwi'
-							);
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-				$result = curl_exec($curl);
-				curl_close($curl);
-
-				$jsonObject = json_decode($result, true);
-
-				foreach ($jsonObject as $item => $value) {
-
-					$date = date_create($value['data_entrada']);
-
-					$image_url = "localhost:8080/WebUbspaces/photos/thumbs/".$value['foto'];
-					$ch = curl_init();
-					$timeout = 0;
-					curl_setopt ($ch, CURLOPT_URL, $image_url);
-					curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-
-					// Getting binary data
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-
-					$image = curl_exec($ch);
-					curl_close($ch);
-
-					// output to browser
-					//header("Content-type: image/jpeg");
-					//print $image;
-
-					?>
-
-					
-					<ul class="demo-list-two mdl-list">
-						<a href="showObject.php?id=<?=$value['codigo']?>">
-							<li class="mdl-list__item mdl-list__item--two-line">
-							<img src="http://localhost:8080/WebUbspaces/photos/thumbs/<?=$value['foto']?>" class="thumb" width="50" height="50">
-								<span class="mdl-list__item-primary-content">
-									<!-- <i class="material-icons mdl-list__item-avatar">person</i> -->
-									<span><?=$value['nome']?></span>
-									<span class="mdl-list__item-sub-title">Código: <?=$value['codigo']?></span>
-								</span>
-								<span class="mdl-list__item-secondary-content">
-									<span class="mdl-list__item-secondary-info"><?=date_format($date, 'd/m/Y')?></span>
-								</span>
-							</li>
-						</a>
-					</ul>
-					
-
-				<?php
-			}
-
-			?>
-
-
-
+		<main class="mdl-layout__content mdl-color--grey-100" id="listar">	
+			<ul id="obj-list" class="demo-list-two mdl-list"></ul>
 		</main>
 	</div>
 </body>
 
-<script src="scripts/imgThumb.js"></script>
+<script src="Url.js"></script>
+<script src="scripts/tokenValidation.js" ></script>
+<script src="scripts/createObjList.js" ></script>
+<!-- <script src="scripts/imgThumb.js"></script> -->
 
 </html>

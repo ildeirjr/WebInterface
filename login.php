@@ -1,9 +1,9 @@
 <?php
 
-session_start();
-if(isset($_SESSION['token'])){
-  header("Location:home.php");
-}
+// session_start();
+// if(isset($_SESSION['token'])){
+//   header("Location:home.php");
+// }
 
 ?>
 
@@ -37,6 +37,12 @@ if(isset($_SESSION['token'])){
 
   	<body id="page-top">
 
+    <script>
+      if(localStorage.getItem("token") != null){
+        window.location.replace("home.php");
+      }
+    </script>
+
 
   		<div class="bg-secondary text-uppercase" id="mainNav">
       <div class="container">
@@ -50,19 +56,13 @@ if(isset($_SESSION['token'])){
         <h2 class="text-center text-uppercase text-secondary mb-0">Login</h2>
         <h3 class="text-center font-weight-light mb-0" style="margin: 40px">Se você é um administrador ou um operador, entre com seus dados.</h3>
 
-        <?php
-          if(isset($_SESSION['error'])){
-            ?>
-            <h3 class="text-center font-weight-light mb-0" style="margin: 40px; color: red">Dados incorretos. Tente novamente</h3>
-            <?php
-          }
-        ?>
+        <h3 id="error-msg" class="text-center font-weight-light mb-0" style="margin: 40px; color: red" hidden>Dados incorretos. Tente novamente</h3>
 
         <div class="row" style="margin-top: 40px">
           <div class="col-lg-8 mx-auto">
             <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
             <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-            <form method="POST" action="requests/login_validation.php" name="login" id="loginForm" novalidate="novalidate">
+            <form name="login" id="loginForm" novalidate="novalidate">
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Email</label>
@@ -108,6 +108,9 @@ if(isset($_SESSION['token'])){
 
     <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
+
+    <script src="Url.js"></script>
+    <script src="scripts/loginValidation.js" ></script>
 
   	</body>
 

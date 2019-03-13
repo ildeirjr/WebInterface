@@ -2,7 +2,7 @@
 
 class UbspacesURL{
 
-    static $URL = 'localhost:8080/WebUbspaces/';
+    static $URL = '192.168.15.12:8080/WebUbspaces/';
 
 }
 

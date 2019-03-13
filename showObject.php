@@ -1,8 +1,9 @@
 <?php
-include "requests/token_validation.php";
-include "requests/get_object.php";
-$jsonObj = getObject($_GET['id']);
-?>
+// include "requests/token_validation.php";
+// include "requests/get_object.php";
+// $jsonObj = getObject($_GET['id']);
+// $jsonStr = json_encode($jsonObj);
+// ?>
 
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,7 @@ $jsonObj = getObject($_GET['id']);
 	<link rel="stylesheet" href="styles.css">
 	<link rel="stylesheet" href="style.css">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 </head>
 <body>
@@ -23,104 +25,185 @@ $jsonObj = getObject($_GET['id']);
 				<span class="mdl-layout-title">Visualizar objeto</span>
 				<div class="mdl-layout-spacer"></div>
 				<nav class="mdl-navigation">
-                    <a href="#" class="mdl-navigation__link"><i class="material-icons">delete</i></a>
-                    <a href="#" class="mdl-navigation__link"><i class="material-icons">edit</i></a>
+                    <a id="delete-button" class="mdl-navigation__link"><i class="material-icons">delete</i></a>
+                    <a id="edit-button" class="mdl-navigation__link"><i class="material-icons">edit</i></a>
+                    <form name="obj-data-form" action="edit.php" method="post">
+                        <input type="text" name="json_str" value="" hidden>
+                    </form>
 				</nav>
 			</div>
 		</header>
 		<?php include "drawer_menu.php"; ?>
+
+        <dialog id="delete-dialog" class="mdl-dialog">
+			<h4 class="mdl-dialog__title">Excluir</h4>
+			<div class="mdl-dialog__content">
+				<p id="dialog-msg">
+					Tem certeza que deseja excluir esse objeto?
+				</p>
+			</div>
+			<div class="mdl-dialog__actions">
+                <button type="button" id="yes-button" class="mdl-button">Sim</button>
+				<button type="button" id="no-button" class="mdl-button close">Não</button>
+			</div>
+  		</dialog>
+
+          <dialog id="response-dialog" class="mdl-dialog">
+			<h4 class="mdl-dialog__title">Sucesso!</h4>
+			<div class="mdl-dialog__content">
+				<p id="dialog-msg">
+					O objeto foi excluído
+				</p>
+			</div>
+			<div class="mdl-dialog__actions">
+				<button type="button" id="ok-button" class="mdl-button close">OK</button>
+			</div>
+  		</dialog>
+
 		<main class="mdl-layout__content mdl-color--grey-100">
             <div class="show-object-container">
                 <div class="show-object-text">
-                    <h3 id="object-name-title"><?=$jsonObj->nome?></h3>
+                    <h3 id="object-name-title"></h3>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Código
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=$jsonObj->codigo?>
+                        <div id="item-id" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Estado
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=$jsonObj->estado?>
+                        <div id="item-state" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Descrição
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=$jsonObj->descricao?>
+                        <div id="item-description" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Data de entrada
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=date_format(date_create($jsonObj->data_entrada), 'd/m/Y')?>
+                        <div id="item-date" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Unidade acadêmica
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=$jsonObj->unidade?>
+                        <div id="item-unity" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Bloco/Prédio
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=$jsonObj->bloco?>
+                        <div id="item-block" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Sala
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=$jsonObj->sala?>
+                        <div id="item-room" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Recebedor
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=$jsonObj->quem_recebeu?>
+                        <div id="item-responsible" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
                             Nota fiscal
                         </div>
-                        <div class="show-object-item-secondary">
-                            <?=$jsonObj->nota?>
+                        <div id="item-note" class="show-object-item-secondary">
                         </div>
                     </div>
                 </div>
                 <div class="show-object-image">
-                    <img class="object-image" src="http://<?=UbspacesURL::$URL?>photos/<?=$jsonObj->foto?>" alt="">
+                    <img class="object-image" src="" alt="">
                 </div>
             </div>
 		</main>
 	</div>
 </body>
 
+<script src="Url.js"></script>
+
 <script>
-    let imgArray = document.querySelectorAll(".object-image");
-    imgArray.forEach(element => {
-        if(element.getAttribute("src").includes("null.jpg")){
-            element.setAttribute("src","http://<?php echo UbspacesURL::$URL?>photos/default.jpg");
+    let itemId = new URLSearchParams(window.location.search).get('id');
+    var item;
+    $.ajax({
+        url: "http://"+Url.url+"getObject/?id="+itemId,
+        type: 'get',
+        headers: {
+            "Authorization": localStorage.getItem("token")
+        }
+    }).done(function(response){
+        item = JSON.parse(response);
+        document.querySelector("#object-name-title").innerHTML = item.nome;
+        document.querySelector("#item-id").innerHTML = item.codigo;
+        document.querySelector("#item-state").innerHTML = item.estado;
+        document.querySelector("#item-description").innerHTML = item.descricao;
+        document.querySelector("#item-date").innerHTML = item.data_entrada;
+        document.querySelector("#item-unity").innerHTML = item.unidade;
+        document.querySelector("#item-block").innerHTML = item.bloco;
+        document.querySelector("#item-room").innerHTML = item.sala;
+        document.querySelector("#item-responsible").innerHTML = item.quem_recebeu;
+        document.querySelector("#item-note").innerHTML = item.nota;
+        if(item.foto == "null.jpg"){
+            document.querySelector(".object-image").src = "http://"+Url.url+"photos/default.jpg";
+        } else {
+            document.querySelector(".object-image").src = "http://"+Url.url+"photos/"+item.foto;
         }
     });
+</script>
+    
+<script>
+    let deleteButton = document.querySelector("#delete-button");
+    deleteButton.onclick = function(){
+        let deleteDialog = document.querySelector("#delete-dialog");
+        deleteDialog.showModal();
+        document.querySelector("#no-button").onclick = function(){
+            deleteDialog.close();
+        }
+        document.querySelector("#yes-button").onclick = function(){
+            deleteDialog.close();
+            $.ajax({
+                url: "http://"+Url.url+"delete/",
+                type: "post",
+                headers: {
+                    "Authorization": localStorage.getItem("token")
+                },
+                data: {
+                    id: item.codigo,
+                    delete_user: localStorage.getItem("idUser")
+                }
+            }).done(function(response){
+                let responseDialog = document.querySelector("#response-dialog");
+                responseDialog.showModal();
+                document.querySelector("#ok-button").onclick = function(){
+                    responseDialog.close();
+                    window.history.back();
+                }
+            });
+        }
+    }
+
+    let editButton = document.querySelector("#edit-button");
+    editButton.onclick = function(){
+        // document.forms['obj-data-form']['json_str'].value = '<?php //echo $jsonStr; ?>';
+        // document.forms['obj-data-form'].submit();
+    }
+
 </script>
 
 </html>
