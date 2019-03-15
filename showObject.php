@@ -148,12 +148,13 @@
             "Authorization": localStorage.getItem("token")
         }
     }).done(function(response){
+        sessionStorage.setItem("objData", response);
         item = JSON.parse(response);
         document.querySelector("#object-name-title").innerHTML = item.nome;
         document.querySelector("#item-id").innerHTML = item.codigo;
         document.querySelector("#item-state").innerHTML = item.estado;
         document.querySelector("#item-description").innerHTML = item.descricao;
-        document.querySelector("#item-date").innerHTML = item.data_entrada;
+        document.querySelector("#item-date").innerHTML = new Date(item.data_entrada).toLocaleDateString("PT-br");
         document.querySelector("#item-unity").innerHTML = item.unidade;
         document.querySelector("#item-block").innerHTML = item.bloco;
         document.querySelector("#item-room").innerHTML = item.sala;
@@ -200,8 +201,7 @@
 
     let editButton = document.querySelector("#edit-button");
     editButton.onclick = function(){
-        // document.forms['obj-data-form']['json_str'].value = '<?php //echo $jsonStr; ?>';
-        // document.forms['obj-data-form'].submit();
+        document.location.href = "edit.php";
     }
 
 </script>

@@ -10,7 +10,7 @@ function dataValidation(){
     let dateInput = document.forms["form-cadastro"]["data_entrada"];
 
     let responsibleField = document.querySelector("#responsible-field");
-    let responsibleInput = document.forms["form-cadastro"]["quem_recebeu"];
+    let responsibleInput = document.forms["form-cadastro"]["recebeu"];
 
     let noteField = document.querySelector("#note-field");
     let noteInput = document.forms["form-cadastro"]["nota"];

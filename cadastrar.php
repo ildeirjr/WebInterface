@@ -1,5 +1,5 @@
 <?php
-include "requests/token_validation.php";
+//include "requests/token_validation.php";
 ?>
 
 <!DOCTYPE html>
@@ -84,8 +84,8 @@ include "requests/token_validation.php";
 						</div>
 
 						<div id="responsible-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" name="quem_recebeu">
-							<label class="mdl-textfield__label" for="quem_recebeu">Recebedor</label>
+							<input class="mdl-textfield__input" type="text" name="recebeu">
+							<label class="mdl-textfield__label" for="recebeu">Recebedor</label>
 							<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 						</div>
 
@@ -134,7 +134,7 @@ include "requests/token_validation.php";
 						</div>
 						<input type="text" name="base64_img" value="" hidden>
 						<input type="text" name="base64_thumb" value="" hidden>
-						<input type="text" name="nome_usuario" value="<?= $_SESSION['idUser'] ?>" hidden>
+						<input type="text" name="nome_usuario" value="" hidden>
 					</form>
 			</div>
 		</main>
@@ -142,6 +142,7 @@ include "requests/token_validation.php";
 </body>
 
 <script type="text/javascript">
+	document.forms["form-cadastro"]["nome_usuario"].value = localStorage.getItem("idUser");
 	let inputData = document.querySelector("#date");
 	let divData = document.querySelector("#date-field");
 	inputData.addEventListener('focusin', function(){
@@ -219,96 +220,9 @@ include "requests/token_validation.php";
 
 </script>
 
-<script src="scripts/objectFieldsValidation.js" ></script>
-
-<script>
-	$('#form-cadastro').submit(function(e) {
-		e.preventDefault();
-
-		let that = $(this),
-			url =  "http://<?php echo UbspacesURL::$URL ?>addObject/",
-			type = 'post',
-			header = {"Authorization": "<?php echo $_SESSION['token'] ?>"},
-			data = {},
-			dataImg = {};
-		
-		that.find('[name]').each(function(index, value){
-			let that = $(this),
-				name = that.attr('name');
-				value = that.val();
-
-			data[name] = value;
-		});
-
-		if(data['foto'] != ""){
-			dataImg['nome'] = data['nome'] + "_" + data['codigo'] + ".jpg";
-			dataImg['img'] = data['base64_img'];
-			dataImg['imgThumb'] = data['base64_thumb'];
-			data['foto'] = dataImg['nome'];
-		} else {
-			data['foto'] = "null.jpg";
-		}
-
-		console.log(header);
-
-		$.ajax({
-			url: url,
-			type: type,
-			headers: header,
-			data: data
-		}).done(function(response){
-
-			console.log(response);
-			let dialogTitle, dialogMsg;
-
-			if(response == "23000"){
-				dialogTitle = "Erro";
-				dialogMsg = "O código informado já existe";
-				showDialog(dialogTitle, dialogMsg);
-			} else if(response == "00000"){
-
-				if(data['foto'] != "null.jpg"){
-					//WITH IMAGE
-					console.log(data);
-					$.ajax({
-						url: 'http://<?php echo UbspacesURL::$URL ?>uploadImg/',
-						type: type,
-						headers: header,
-						data: dataImg
-					}).done(function(response){
-						if(response == "1"){
-							dialogTitle = "Sucesso!";
-							dialogMsg = "Objeto cadastrado no sistema";
-							showDialog(dialogTitle, dialogMsg);
-						} else {
-							dialogTitle = "Erro";
-							dialogMsg = "Falha ao carregar imagem";
-							showDialog(dialogTitle, dialogMsg);
-						}
-					});
-				} else {
-					//WITHOUT IMAGE
-					dialogTitle = "Sucesso!";
-					dialogMsg = "Objeto cadastrado no sistema";
-					showDialog(dialogTitle, dialogMsg);
-				}
-
-				
-			}
-			
-		});
-
-		function showDialog(dialogTitle, dialogMsg){
-			let dialog = document.querySelector("dialog");
-			document.querySelector(".close").addEventListener('click', function() {
-				dialog.close();
-			});
-
-			document.querySelector(".mdl-dialog__title").innerHTML = dialogTitle;
-			document.querySelector("#dialog-msg").innerHTML = dialogMsg;
-			dialog.showModal();
-		}
-	});
-</script>
+<script src="Url.js"></script>
+<script src="scripts/dialogHandler.js"></script>
+<script src="scripts/objectFieldsValidation.js"></script>
+<script src="scripts/addRequest.js"></script>
 
 </html>

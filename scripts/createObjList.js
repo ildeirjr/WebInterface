@@ -1,7 +1,8 @@
-function addElement(item){
+function addElement(item, listIndex){
     var li = document.createElement('li');
     li.setAttribute("class","mdl-list__item mdl-list__item--two-line");
     li.onclick = function(){
+        sessionStorage.setItem("objIndex", listIndex);
         window.location.href = "showObject.php?id="+item.codigo;
     }
 
@@ -46,8 +47,8 @@ function addElement(item){
 function createList(itemArray){
     var list = document.querySelector("#obj-list");
 
-    itemArray.forEach(element => {
-        list.appendChild(addElement(element));
+    itemArray.forEach((element, index) => {
+        list.appendChild(addElement(element, index));
     });
 }
 
