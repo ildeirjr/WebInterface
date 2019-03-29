@@ -16,6 +16,8 @@
 	<link rel="stylesheet" href="style.css">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="Url.js"></script>
+	<script src="scripts/tokenValidation.js" ></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 </head>
 <body>
@@ -152,7 +154,6 @@
 	</div>
 </body>
 
-<script src="Url.js" ></script>
 <script>
 
 	var item = JSON.parse(sessionStorage.getItem("objData"));

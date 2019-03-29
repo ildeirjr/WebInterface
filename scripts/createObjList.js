@@ -44,7 +44,7 @@ function addElement(item, listIndex){
     return li;
 }
 
-function createList(itemArray){
+function appendArrayToList(itemArray){
     var list = document.querySelector("#obj-list");
 
     itemArray.forEach((element, index) => {
@@ -52,13 +52,34 @@ function createList(itemArray){
     });
 }
 
-$.ajax({
-    url: "http://"+Url.url+"listall/?mode=non_deleted&num_page=0&window_size=10",
-    type: 'get',
-    headers: {
-        "Authorization": "1gdh87efuhwi"
+function loadData(mode, page, windowSize){
+    $.ajax({
+        url: `http://${Url.url}listall/?mode=${mode}&num_page=${page}&window_size=${windowSize}`,
+        type: 'get',
+        headers: {
+            "Authorization": localStorage.getItem("token")
+        },
+        async: false
+    }).done(function(response){
+        let jsonArray = JSON.parse(response);
+        appendArrayToList(jsonArray);
+    });
+}
+
+const windowSize = 15;
+var pageCount = 0;
+
+loadData("non_deleted", pageCount, windowSize);
+
+// document.querySelector("#load-more-button").onclick = function(){
+//     pageCount += windowSize;
+//     loadData("non_deleted", pageCount, windowSize);
+// }
+
+$('main').scroll(function(){
+    console.log(`ScrollTop: ${$('main').scrollTop()}, MainHeight: ${$('main').height()}, ListHeight: ${$('#obj-list').height()}`)
+    if($('main').scrollTop() >= $('#obj-list').height() - $(document).height()){
+        pageCount += windowSize;
+        loadData("non_deleted", pageCount, windowSize);
     }
-}).done(function(response){
-    let jsonArray = JSON.parse(response);
-    createList(jsonArray);
 });

@@ -223,10 +223,15 @@ _:-ms-input-placeholder, :root .demo-graph {
   border-radius: 50%;
 }
 .mdl-list__item {
-  margin: 10px;
+  padding: 40px 20px 40px 20px;
   cursor: pointer;
 }
 
 li:hover {
   background-color: #EEE;
+}
+
+#div-load-more-button {
+  padding: 10px;
+  text-align: center;
 }

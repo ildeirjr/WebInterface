@@ -16,7 +16,9 @@
 	<link rel="stylesheet" href="style.css">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<script src="Url.js"></script>
+	<script src="scripts/tokenValidation.js" ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 </head>
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
@@ -135,8 +137,6 @@
 		</main>
 	</div>
 </body>
-
-<script src="Url.js"></script>
 
 <script>
     let itemId = new URLSearchParams(window.location.search).get('id');

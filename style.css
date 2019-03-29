@@ -96,6 +96,34 @@
   right: 30%;
 }
 
+#filter-button {
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
+}
+
+#filter-dialog {
+  width: 60%;
+}
+
+.filter-row {
+  display: flex;
+}
+
+.filter-label {
+  flex: 1;
+}
+
+.filter-field {
+  flex: 3;
+}
+
+#filter-name-fields,
+#filter-local-fields,
+#filter-date-fields,
+#filter-state-fields {
+  display: none;
+}
 
 
 @media (max-width: 600px) {
