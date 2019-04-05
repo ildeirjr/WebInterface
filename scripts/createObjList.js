@@ -44,9 +44,16 @@ function addElement(item, listIndex){
     return li;
 }
 
-function appendArrayToList(itemArray){
-    var list = document.querySelector("#obj-list");
+var list = document.querySelector("#obj-list");
 
+function clearList(){
+    while(list.firstChild){
+        list.removeChild(list.firstChild);
+    }
+    pageCount = 0;
+}
+
+function appendArrayToList(itemArray){
     itemArray.forEach((element, index) => {
         list.appendChild(addElement(element, index));
     });
@@ -61,8 +68,24 @@ function loadData(mode, page, windowSize){
         },
         async: false
     }).done(function(response){
-        let jsonArray = JSON.parse(response);
-        appendArrayToList(jsonArray);
+        appendArrayToList(JSON.parse(response));
+    });
+}
+
+function loadFilteredData(mode, page, windowSize, params){
+    $.ajax({
+        url: "http://"+Url.url+"filter/",
+        type: 'get',
+        headers: {"Authorization": localStorage.getItem("token")},
+        data: {
+            'mode': mode,
+            'num_page': page,
+            'window_size': windowSize,
+            'filter_params': params
+        }
+    }).done(function(response){
+        console.log(response);
+        appendArrayToList(JSON.parse(response));
     });
 }
 
@@ -80,6 +103,10 @@ $('main').scroll(function(){
     console.log(`ScrollTop: ${$('main').scrollTop()}, MainHeight: ${$('main').height()}, ListHeight: ${$('#obj-list').height()}`)
     if($('main').scrollTop() >= $('#obj-list').height() - $(document).height()){
         pageCount += windowSize;
-        loadData("non_deleted", pageCount, windowSize);
+        if(filterOn){
+            loadFilteredData("non_deleted", pageCount, windowSize, filterParams);
+        } else {
+            loadData("non_deleted", pageCount, windowSize);
+        }
     }
 });

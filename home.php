@@ -150,8 +150,13 @@
 		</main>
 	</div>
 
-	<script src="scripts/createObjList.js" ></script>
 	<script src="scripts/filterScript.js"></script>
+	<script src="scripts/createObjList.js" ></script>
+	<script>
+		$( document ).ready(function() {
+			$(':checkbox').prop('checked',false); //This would clear all inputs.
+		});
+	</script>
 
 </body>
 

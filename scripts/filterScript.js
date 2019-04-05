@@ -1,16 +1,37 @@
 var dialog = document.querySelector('dialog');
 var filterButton = document.querySelector("#filter-button");
+
+function toggleFilterButtonOn(){
+    filterButton.style.backgroundColor = "red";
+    filterButton.style.color = "white";
+    filterButton.querySelector('i').innerHTML = "close";
+}
+
+function toggleFilterButtonOff(){
+    filterButton.style.backgroundColor = "rgb(238,255,65)";
+    filterButton.style.color = "black";
+    filterButton.querySelector('i').innerHTML = "filter_list";
+}
+
 if (! dialog.showModal) {
     dialogPolyfill.registerDialog(dialog);
 }
 filterButton.addEventListener('click', function() {
-    dialog.showModal();
+    if(!filterOn){
+        dialog.showModal();
+    } else {
+        clearList();
+        loadData("non_deleted", pageCount, windowSize);
+        toggleFilterButtonOff();
+        filterOn = false;
+    }
 });
 dialog.querySelector('.close').addEventListener('click', function() {
     dialog.close();
 });
 dialog.querySelector('#filter-ok-button').addEventListener('click', function() {
     $('#form-filter').submit();
+    toggleFilterButtonOn();
 });
 
 let nameCheckbox = document.querySelector("#name-checkbox");
@@ -58,14 +79,16 @@ stateCheckbox.onclick = function(){
     }
 }
 
+var filterParams;
+var filterOn = false;
+
 $('#form-filter').submit(function(e) {
     e.preventDefault();
     dialog.close();
 
+    filterOn = true;
+
     let that = $(this),
-        url = "http://"+Url.url+"filter/",
-        type = 'get',
-        header = {"Authorization": localStorage.getItem("token")},
         data = {};
 
     that.find('[name]').each(function(index, value){
@@ -76,22 +99,24 @@ $('#form-filter').submit(function(e) {
         data[name] = value;
     });
 
-    console.log(data);
+    if(!nameCheckbox.checked){
+        data['name'] = "";
+    }
+    if(!localCheckbox.checked){
+        data['unity'] = "";
+        data['bloco'] = "";
+        data['sala'] = "";
+    }
+    if(!dateCheckbox.checked){
+        data['start_date'] = "";
+        data['end_date'] = "";
+    }
+    if(!stateCheckbox.checked){
+        data['state'] = "";
+    }
 
-    $.ajax({
-        url: url,
-        type: type,
-        headers: header,
-        data: {
-            'mode': 'non_deleted',
-            'num_page': pageCount,
-            'window_size': windowSize,
-            'filter_params': JSON.stringify(data)
-        }
-    }).done(function(response){
-        console.log(response);
-    });
+    filterParams = JSON.stringify(data);
 
-    
-
+    clearList();
+    loadFilteredData("non_deleted", pageCount, windowSize, filterParams);
 });
