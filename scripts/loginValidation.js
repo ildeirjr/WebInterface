@@ -28,14 +28,15 @@ document.forms["login"].onsubmit = function(e) {
             type: 'get',
             headers: {
               "Authorization": "1gdh87efuhwi"
-            }
+            },
+            cache: false
           }).done(function(response){
             let jsonAuth = JSON.parse(response);
             localStorage.setItem("nome", jsonAuth.nome);
             localStorage.setItem("email", jsonAuth.email);
             localStorage.setItem("data_nasc", jsonAuth.data_nasc);
             localStorage.setItem("depto", jsonAuth.depto);
-            window.location.replace("home.php")
+            window.location.replace("home.php?mode=non_deleted")
           });
       }
     });

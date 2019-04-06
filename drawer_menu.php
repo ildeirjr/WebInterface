@@ -15,8 +15,8 @@
     </header>
     <nav class="mdl-navigation">
             <a href="cadastrar.php" class="mdl-navigation__link">Cadastrar objetos</a>
-            <a href="#listar" class="mdl-navigation__link">Listar objetos</a>
-            <a href="#" class="mdl-navigation__link">Objetos excluídos</a>
+            <a href="home.php?mode=non_deleted" class="mdl-navigation__link">Listar objetos</a>
+            <a href="home.php?mode=deleted" class="mdl-navigation__link">Objetos excluídos</a>
     </nav>
 </div>
 

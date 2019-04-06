@@ -32,6 +32,12 @@ function addElement(item, listIndex){
     itemDate.setAttribute("class","mdl-list__item-secondary-info");
     itemDate.innerHTML = new Date(item.data_entrada).toLocaleDateString("pt-BR");
 
+    if(mode == 'deleted'){
+        itemName.style.color = "red";
+        itemId.style.color = "red";
+        itemDate.style.color = "red";
+    }
+
     primaryContent.appendChild(itemName);
     primaryContent.appendChild(itemId);
 
@@ -66,8 +72,10 @@ function loadData(mode, page, windowSize){
         headers: {
             "Authorization": localStorage.getItem("token")
         },
+        cache: false,
         async: false
     }).done(function(response){
+        console.log(response);
         appendArrayToList(JSON.parse(response));
     });
 }
@@ -91,8 +99,9 @@ function loadFilteredData(mode, page, windowSize, params){
 
 const windowSize = 15;
 var pageCount = 0;
+var mode = new URLSearchParams(window.location.search).get('mode');
 
-loadData("non_deleted", pageCount, windowSize);
+loadData(mode, pageCount, windowSize);
 
 // document.querySelector("#load-more-button").onclick = function(){
 //     pageCount += windowSize;
@@ -104,9 +113,9 @@ $('main').scroll(function(){
     if($('main').scrollTop() >= $('#obj-list').height() - $(document).height()){
         pageCount += windowSize;
         if(filterOn){
-            loadFilteredData("non_deleted", pageCount, windowSize, filterParams);
+            loadFilteredData(mode, pageCount, windowSize, filterParams);
         } else {
-            loadData("non_deleted", pageCount, windowSize);
+            loadData(mode, pageCount, windowSize);
         }
     }
 });

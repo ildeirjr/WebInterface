@@ -21,7 +21,7 @@ filterButton.addEventListener('click', function() {
         dialog.showModal();
     } else {
         clearList();
-        loadData("non_deleted", pageCount, windowSize);
+        loadData(mode, pageCount, windowSize);
         toggleFilterButtonOff();
         filterOn = false;
     }
@@ -118,5 +118,5 @@ $('#form-filter').submit(function(e) {
     filterParams = JSON.stringify(data);
 
     clearList();
-    loadFilteredData("non_deleted", pageCount, windowSize, filterParams);
+    loadFilteredData(mode, pageCount, windowSize, filterParams);
 });

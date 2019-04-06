@@ -27,8 +27,9 @@
 				<span class="mdl-layout-title">Visualizar objeto</span>
 				<div class="mdl-layout-spacer"></div>
 				<nav class="mdl-navigation">
-                    <a id="delete-button" class="mdl-navigation__link"><i class="material-icons">delete</i></a>
-                    <a id="edit-button" class="mdl-navigation__link"><i class="material-icons">edit</i></a>
+                    <a id="delete-button" class="mdl-navigation__link" style="display: none;"><i class="material-icons">delete</i></a>
+                    <a id="edit-button" class="mdl-navigation__link" style="display: none;"><i class="material-icons">edit</i></a>
+                    <a id="restore-button" class="mdl-navigation__link" style="display: none;"><i class="material-icons">settings_backup_restore</i></a>
                     <form name="obj-data-form" action="edit.php" method="post">
                         <input type="text" name="json_str" value="" hidden>
                     </form>
@@ -50,7 +51,7 @@
 			</div>
   		</dialog>
 
-          <dialog id="response-dialog" class="mdl-dialog">
+        <dialog id="response-dialog" class="mdl-dialog">
 			<h4 class="mdl-dialog__title">Sucesso!</h4>
 			<div class="mdl-dialog__content">
 				<p id="dialog-msg">
@@ -59,6 +60,31 @@
 			</div>
 			<div class="mdl-dialog__actions">
 				<button type="button" id="ok-button" class="mdl-button close">OK</button>
+			</div>
+  		</dialog>
+
+          <dialog id="restore-dialog" class="mdl-dialog">
+			<h4 class="mdl-dialog__title">Restaurar</h4>
+			<div class="mdl-dialog__content">
+				<p id="dialog-msg">
+					Tem certeza que deseja restaurar esse objeto?
+				</p>
+			</div>
+			<div class="mdl-dialog__actions">
+                <button type="button" id="restore-yes-button" class="mdl-button">Sim</button>
+				<button type="button" id="restore-no-button" class="mdl-button close">Não</button>
+			</div>
+  		</dialog>
+
+        <dialog id="restore-response-dialog" class="mdl-dialog">
+			<h4 class="mdl-dialog__title">Sucesso!</h4>
+			<div class="mdl-dialog__content">
+				<p id="dialog-msg">
+					O objeto foi restaurado
+				</p>
+			</div>
+			<div class="mdl-dialog__actions">
+				<button type="button" id="restore-ok-button" class="mdl-button close">OK</button>
 			</div>
   		</dialog>
 
@@ -146,7 +172,8 @@
         type: 'get',
         headers: {
             "Authorization": localStorage.getItem("token")
-        }
+        },
+        cache: false
     }).done(function(response){
         sessionStorage.setItem("objData", response);
         item = JSON.parse(response);
@@ -164,6 +191,12 @@
             document.querySelector(".object-image").src = "http://"+Url.url+"photos/default.jpg";
         } else {
             document.querySelector(".object-image").src = "http://"+Url.url+"photos/"+item.foto;
+        }
+        if(item.estado == 'Excluido'){
+            document.querySelector("#restore-button").style.display = "block";
+        } else {
+            document.querySelector("#delete-button").style.display = "block";
+            document.querySelector("#edit-button").style.display = "block";
         }
     });
 </script>
@@ -202,6 +235,35 @@
     let editButton = document.querySelector("#edit-button");
     editButton.onclick = function(){
         document.location.href = "edit.php";
+    }
+
+    let restoreButton = document.querySelector("#restore-button");
+    restoreButton.onclick = function(){
+        let restoreDialog = document.querySelector("#restore-dialog");
+        restoreDialog.showModal();
+        document.querySelector("#restore-no-button").onclick = function(){
+            restoreDialog.close();
+        }
+        document.querySelector("#restore-yes-button").onclick = function(){
+            restoreDialog.close();
+            $.ajax({
+                url: "http://"+Url.url+"restore/",
+                type: "post",
+                headers: {
+                    "Authorization": localStorage.getItem("token")
+                },
+                data: {
+                    id: item.codigo,
+                }
+            }).done(function(response){
+                let responseDialog = document.querySelector("#restore-response-dialog");
+                responseDialog.showModal();
+                document.querySelector("#restore-ok-button").onclick = function(){
+                    responseDialog.close();
+                    window.history.back();
+                }
+            });
+        }
     }
 
 </script>
