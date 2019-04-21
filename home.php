@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-lime.min.css" />
 	<link rel="stylesheet" href="styles.css">
 	<link rel="stylesheet" href="style.css">
-	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="Url.js"></script>
 	<script src="scripts/tokenValidation.js" ></script>
@@ -20,9 +20,10 @@
 				<span class="mdl-layout-title">Ubspaces</span>
 				<div class="mdl-layout-spacer"></div>
 				<nav class="mdl-navigation">
-					<a href="#" class="mdl-navigation__link">Link 1</a>
-					<a href="#" class="mdl-navigation__link">Link 2</a>
-					<a href="#" class="mdl-navigation__link">Link 3</a>
+					<a id="delete-button" class="mdl-navigation__link" style="display: none;"><i class="material-icons">delete</i></a>
+					<a id="restore-button" class="mdl-navigation__link" style="display: none;"><i class="material-icons">settings_backup_restore</i></a>
+					<!-- <a href="#" class="mdl-navigation__link">Link 2</a>
+					<a href="#" class="mdl-navigation__link">Link 3</a> -->
 				</nav>
 			</div>
 		</header>
@@ -152,6 +153,7 @@
 
 	<script src="scripts/filterScript.js"></script>
 	<script src="scripts/createObjList.js" ></script>
+	<script src="scripts/deleteSelectedItems.js"></script>
 	<script>
 		$( document ).ready(function() {
 			$(':checkbox').prop('checked',false); //This would clear all inputs.

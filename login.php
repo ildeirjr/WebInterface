@@ -39,7 +39,8 @@
 
     <script>
       if(localStorage.getItem("token") != null){
-        window.location.replace("home.php?mode=non_deleted");
+        sessionStorage.setItem("mode","non_deleted");
+        window.location.replace("home.php");
       }
     </script>
 

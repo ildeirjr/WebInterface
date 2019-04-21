@@ -15,13 +15,24 @@
     </header>
     <nav class="mdl-navigation">
             <a href="cadastrar.php" class="mdl-navigation__link">Cadastrar objetos</a>
-            <a href="home.php?mode=non_deleted" class="mdl-navigation__link">Listar objetos</a>
-            <a href="home.php?mode=deleted" class="mdl-navigation__link">Objetos excluídos</a>
+            <a id="non-deleted-link" class="mdl-navigation__link">Listar objetos</a>
+            <a id="deleted-link" class="mdl-navigation__link">Objetos excluídos</a>
     </nav>
 </div>
 
 <!-- <script src="Url.js"></script> -->
 <script>
+
+  document.querySelector("#non-deleted-link"). onclick = function(){
+    sessionStorage.setItem("mode","non_deleted");
+    document.location.href = "home.php";
+  }
+
+  document.querySelector("#deleted-link"). onclick = function(){
+    sessionStorage.setItem("mode","deleted");
+    document.location.href = "home.php";
+  }
+
   document.querySelector("#user-name-text").innerHTML = localStorage.getItem("nome");
   document.querySelector("#logout-button").onclick = function(){
     $.ajax({

@@ -6,6 +6,44 @@ function addElement(item, listIndex){
         window.location.href = "showObject.php?id="+item.codigo;
     }
 
+    var chkBoxLabel = document.createElement('label');
+    chkBoxLabel.setAttribute("class","mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect");
+    chkBoxLabel.setAttribute("for","checkbox-"+listIndex);
+    chkBoxLabel.setAttribute("style","width: 30px;");
+
+    $(chkBoxLabel).click(function(event){
+        event.stopPropagation();
+    });
+
+    var checkBox = document.createElement('input');
+    checkBox.setAttribute("type","checkbox");
+    checkBox.setAttribute("style","margin-right: 20px;");
+    checkBox.setAttribute("id","checkbox-"+listIndex);
+    checkBox.setAttribute("class","mdl-checkbox__input");
+
+    $(checkBox).click(function(){
+        let clickIndex = $(this).parent().parent().index();
+        let itemId = $(this).parent().parent().children().eq(2).children().eq(1).html();
+        if($(this).prop("checked")){
+            indexArray.push({index: clickIndex, id: itemId});
+        } else {
+            let idx = indexArray.map(function(e){return e.index;}).indexOf(clickIndex);
+            indexArray.splice(idx,1);
+        }
+
+        console.log(indexArray);
+
+        if(indexArray.length > 0){
+            selectModeOn();
+        } else {
+            selectModeOff();
+        }
+    });
+
+    chkBoxLabel.appendChild(checkBox);
+
+    componentHandler.upgradeElement(chkBoxLabel);
+
     var img = document.createElement('img');
     img.setAttribute("class","thumb");
     
@@ -43,6 +81,7 @@ function addElement(item, listIndex){
 
     secondaryContent.appendChild(itemDate);
 
+    li.appendChild(chkBoxLabel);
     li.appendChild(img);
     li.appendChild(primaryContent);
     li.appendChild(secondaryContent);
@@ -51,6 +90,7 @@ function addElement(item, listIndex){
 }
 
 var list = document.querySelector("#obj-list");
+var indexArray = [];
 
 function clearList(){
     while(list.firstChild){
@@ -61,7 +101,7 @@ function clearList(){
 
 function appendArrayToList(itemArray){
     itemArray.forEach((element, index) => {
-        list.appendChild(addElement(element, index));
+        list.appendChild(addElement(element, index + pageCount));
     });
 }
 
@@ -75,7 +115,6 @@ function loadData(mode, page, windowSize){
         cache: false,
         async: false
     }).done(function(response){
-        console.log(response);
         appendArrayToList(JSON.parse(response));
     });
 }
@@ -92,14 +131,13 @@ function loadFilteredData(mode, page, windowSize, params){
             'filter_params': params
         }
     }).done(function(response){
-        console.log(response);
         appendArrayToList(JSON.parse(response));
     });
 }
 
 const windowSize = 15;
 var pageCount = 0;
-var mode = new URLSearchParams(window.location.search).get('mode');
+var mode = sessionStorage.getItem("mode");
 
 loadData(mode, pageCount, windowSize);
 
@@ -109,7 +147,7 @@ loadData(mode, pageCount, windowSize);
 // }
 
 $('main').scroll(function(){
-    console.log(`ScrollTop: ${$('main').scrollTop()}, MainHeight: ${$('main').height()}, ListHeight: ${$('#obj-list').height()}`)
+    //console.log(`ScrollTop: ${$('main').scrollTop()}, MainHeight: ${$('main').height()}, ListHeight: ${$('#obj-list').height()}`)
     if($('main').scrollTop() >= $('#obj-list').height() - $(document).height()){
         pageCount += windowSize;
         if(filterOn){
