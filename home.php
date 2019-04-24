@@ -140,6 +140,11 @@
 			</div>
 		</dialog>
 
+		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+			<div class="mdl-snackbar__text"></div>
+			<button class="mdl-snackbar__action" type="button"></button>
+		</div>
+
 		<main class="mdl-layout__content mdl-color--grey-100" id="listar">	
 			<ul id="obj-list" class="demo-list-two mdl-list"></ul>
 			<button id="filter-button" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">

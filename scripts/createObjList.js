@@ -25,7 +25,7 @@ function addElement(item, listIndex){
         let clickIndex = $(this).parent().parent().index();
         let itemId = $(this).parent().parent().children().eq(2).children().eq(1).html();
         if($(this).prop("checked")){
-            indexArray.push({index: clickIndex, id: itemId});
+            indexArray.push({index: clickIndex, id: itemId, html: null});
         } else {
             let idx = indexArray.map(function(e){return e.index;}).indexOf(clickIndex);
             indexArray.splice(idx,1);
