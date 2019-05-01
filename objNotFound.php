@@ -15,16 +15,20 @@
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
 		<header class="mdl-layout__header">
 			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title">Cadastrar objeto</span>
+				<span class="mdl-layout-title">Erro</span>
 				<div class="mdl-layout-spacer"></div>
 				<nav class="mdl-navigation">
-					<a href="#" class="mdl-navigation__link" id="submit-button">Confirmar</a>
 				</nav>
 			</div>
 		</header>
 		<?php include "drawer_menu.php"; ?>
 		<main class="mdl-layout__content mdl-color--grey-100">
-			
+			<h5 style="
+                text-align: -webkit-center;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            ">O item com o código especificado não existe no sistema</h5>
 		</main>
 	</div>
 </body>

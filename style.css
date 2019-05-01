@@ -125,6 +125,34 @@
   display: none;
 }
 
+#id-search-input::placeholder {
+  color: rgba(255,255,255,.70);
+}
+
+#card-container {
+  display: flex;
+}
+
+.demo-card-square.mdl-card {
+  margin: 20px;
+  width: 300px;
+  height: 250px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+}
+
+#card-1 > .mdl-card__title {
+  background: bottom right 15% no-repeat rgb(97, 84, 206);
+}
+
+#card-2 > .mdl-card__title {
+  background: bottom right 15% no-repeat #46B6AC;
+}
+
+#card-3 > .mdl-card__title {
+  background: bottom right 15% no-repeat rgb(190, 247, 115);
+}
 
 @media (max-width: 600px) {
   .show-object-container {
@@ -148,5 +176,9 @@
     max-width: 100%;
     max-height: 90%;
     border-radius: 0px;
+  }
+
+  #card-container {
+    display: block;
   }
 }

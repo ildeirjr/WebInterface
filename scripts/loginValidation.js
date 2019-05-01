@@ -36,7 +36,6 @@ document.forms["login"].onsubmit = function(e) {
             localStorage.setItem("email", jsonAuth.email);
             localStorage.setItem("data_nasc", jsonAuth.data_nasc);
             localStorage.setItem("depto", jsonAuth.depto);
-            sessionStorage.setItem("mode","non_deleted");
             window.location.replace("home.php")
           });
       }

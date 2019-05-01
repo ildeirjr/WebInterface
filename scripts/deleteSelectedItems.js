@@ -12,6 +12,7 @@ function selectModeOn(){
     actionBtn.style.display = "block";
     headerTitle.innerHTML = indexArray.length;
     filterButton.style.display = "none";
+    document.querySelector("#search-form").style.display = "none";
 }
 
 function selectModeOff(){
@@ -28,6 +29,7 @@ function selectModeOff(){
     actionBtn.style.display = "none";
     headerTitle.innerHTML = "Ubspaces";
     filterButton.style.display = "block";
+    document.querySelector("#search-form").style.display = "block";
 }
 
 function compare(a,b) {

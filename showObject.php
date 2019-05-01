@@ -155,6 +155,20 @@
                         <div id="item-note" class="show-object-item-secondary">
                         </div>
                     </div>
+                    <div id="div-delete-user" class="show-object-item" style="display: none;">
+                        <div class="show-object-item-primary">
+                            Excluído por
+                        </div>
+                        <div id="item-delete-user" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div id="div-delete-date" class="show-object-item" style="display: none;">
+                        <div class="show-object-item-primary">
+                            Data da exclusão
+                        </div>
+                        <div id="item-delete-date" class="show-object-item-secondary">
+                        </div>
+                    </div>
                 </div>
                 <div class="show-object-image">
                     <img class="object-image" src="" alt="">
@@ -187,6 +201,10 @@
         document.querySelector("#item-room").innerHTML = item.sala;
         document.querySelector("#item-responsible").innerHTML = item.quem_recebeu;
         document.querySelector("#item-note").innerHTML = item.nota;
+        document.querySelector("#item-delete-user").innerHTML = item.op_exclusao_id;
+        document.querySelector("#item-delete-date").innerHTML = new Date(item.tempo_exclusao).toLocaleDateString("PT-br") + " - " 
+                                                                + new Date(item.tempo_exclusao).getHours() + ":"
+                                                                + new Date(item.tempo_exclusao).getMinutes();
         if(item.foto == "null.jpg"){
             document.querySelector(".object-image").src = "http://"+Url.url+"photos/default.jpg";
         } else {
@@ -194,6 +212,8 @@
         }
         if(item.estado == 'Excluido'){
             document.querySelector("#restore-button").style.display = "block";
+            document.querySelector("#div-delete-user").style.display = "block";
+            document.querySelector("#div-delete-date").style.display = "block";
         } else {
             document.querySelector("#delete-button").style.display = "block";
             document.querySelector("#edit-button").style.display = "block";

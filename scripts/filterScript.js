@@ -5,12 +5,14 @@ function toggleFilterButtonOn(){
     filterButton.style.backgroundColor = "red";
     filterButton.style.color = "white";
     filterButton.querySelector('i').innerHTML = "close";
+    document.querySelector("#search-form").style.display = "none";
 }
 
 function toggleFilterButtonOff(){
     filterButton.style.backgroundColor = "rgb(238,255,65)";
     filterButton.style.color = "black";
     filterButton.querySelector('i').innerHTML = "filter_list";
+    document.querySelector("#search-form").style.display = "block";
 }
 
 if (! dialog.showModal) {
