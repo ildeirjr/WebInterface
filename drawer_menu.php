@@ -18,6 +18,8 @@
             <a href="cadastrar.php" class="mdl-navigation__link">Cadastrar objetos</a>
             <a id="non-deleted-link" class="mdl-navigation__link">Listar objetos</a>
             <a id="deleted-link" class="mdl-navigation__link">Objetos excluídos</a>
+            <a href="cadastrarOperador.php" id="add-operator-link" style="display: none;" class="mdl-navigation__link">Cadastrar operador</a>
+            <a href="listOperators.php" id="list-operators-link" style="display: none;" class="mdl-navigation__link">Listar operadores</a>
     </nav>
 </div>
 
@@ -34,6 +36,13 @@
     document.location.href = "listObj.php";
   }
 
+  console.log(localStorage.getItem("depto"));
+
+  if(localStorage.getItem("admin") == "1"){
+    document.querySelector("#add-operator-link").style.display = "block";
+    document.querySelector("#list-operators-link").style.display = "block";
+  }
+
   document.querySelector("#user-name-text").innerHTML = localStorage.getItem("nome");
   document.querySelector("#logout-button").onclick = function(){
     $.ajax({
@@ -45,7 +54,7 @@
     }).done(function(response){
       if(response == "OK"){
         localStorage.clear();
-        window.location.href = "login.php";
+        window.location.replace("index.php");
       }
     });
   }
