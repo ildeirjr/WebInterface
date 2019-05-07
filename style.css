@@ -121,7 +121,8 @@
 #filter-name-fields,
 #filter-local-fields,
 #filter-date-fields,
-#filter-state-fields {
+#filter-state-fields,
+#filter-depto-fields {
   display: none;
 }
 

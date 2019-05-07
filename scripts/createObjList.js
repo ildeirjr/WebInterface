@@ -68,7 +68,7 @@ function addElement(item, listIndex){
 
     var itemDate = document.createElement('span');
     itemDate.setAttribute("class","mdl-list__item-secondary-info");
-    itemDate.innerHTML = new Date(item.data_entrada).toLocaleDateString("pt-BR");
+    itemDate.innerHTML = new Date(item.data_entrada).toLocaleDateString("pt-BR", {timeZone: 'UTC'});
 
     if(mode == 'deleted'){
         itemName.style.color = "red";

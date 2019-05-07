@@ -22,8 +22,13 @@ function dataValidation(){
         document.querySelector("#email-error-msg").innerHTML = "Este campo não pode ser vazio"
         emailField.classList.add("is-invalid");
     }
-    if(passwordInput.value == ""){
-        passwordField.classList.add("is-invalid");
+    emailInput.onkeypress = function() {
+        document.querySelector("#email-error-msg").innerHTML = "Endereço de e-mail inválido"
+    }
+    if(typeof passCheckbox !== 'undefined' && passCheckbox.checked){
+        if(passwordInput.value == ""){
+            passwordField.classList.add("is-invalid");
+        }
     }
     if(dateInput.value == ""){
         dateField.classList.add("is-invalid");

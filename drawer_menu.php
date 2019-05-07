@@ -10,6 +10,7 @@
         </button>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
           <li id="logout-button" class="mdl-menu__item">Sair</li>
+          <li id="edit-operator" class="mdl-menu__item">Editar dados</li>
         </ul>
       </div>
     </header>
@@ -57,5 +58,15 @@
         window.location.replace("index.php");
       }
     });
+  }
+
+  document.querySelector("#edit-operator").onclick = function() {
+    var userData = {};
+    userData['nome'] = localStorage.getItem("nome");
+    userData['email'] = localStorage.getItem("email");
+    userData['data_nasc'] = localStorage.getItem("data_nasc");
+    userData['depto'] = localStorage.getItem("depto");
+    sessionStorage.setItem("userData", JSON.stringify(userData));
+    window.location.href = "editOperator.php";
   }
 </script>

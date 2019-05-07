@@ -8,7 +8,6 @@ function selectModeOn(){
     actionBtn.style.display = "block";
     headerTitle.innerHTML = indexArray.length;
     filterButton.style.display = "none";
-    document.querySelector("#search-form").style.display = "none";
 }
 
 function selectModeOff(){
@@ -21,7 +20,6 @@ function selectModeOff(){
     actionBtn.style.display = "none";
     headerTitle.innerHTML = "Ubspaces";
     filterButton.style.display = "block";
-    document.querySelector("#search-form").style.display = "block";
 }
 
 function compare(a,b) {
@@ -69,12 +67,13 @@ deleteBtn.onclick = function() {
 
 function deleteItems() {
     indexArrayCopy.forEach((element) => {
+        console.log("EMAIL: "+element.id);
         $.ajax({
             url: "http://"+Url.url+"deleteOperator/",
             type: 'post',
             headers: {"Authorization": localStorage.getItem("token")},
             data: {
-                "id": element.email
+                "email": element.id
             },
             cache: false
         }).done();

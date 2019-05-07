@@ -24,17 +24,6 @@
 					<a id="restore-button" class="mdl-navigation__link" style="display: none;"><i class="material-icons">settings_backup_restore</i></a>
 					<!-- <a href="#" class="mdl-navigation__link">Link 2</a>
 					<a href="#" class="mdl-navigation__link">Link 3</a> -->
-					<form id="search-form" name="search-form">
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-							<label class="mdl-button mdl-js-button mdl-button--icon" for="id-search-input">
-								<i class="material-icons">search</i>
-							</label>
-							<div class="mdl-textfield__expandable-holder">
-								<input class="mdl-textfield__input" type="number" name="id-search-input" id="id-search-input" placeholder="Pesquisar por código">
-								<label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
-							</div>
-						</div>
-					</form>
 				</nav>
 			</div>
 		</header>
@@ -52,61 +41,14 @@
 					</div>
 					<div id="filter-name-fields">
 						<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" type="text" id="sample1" name="name" />
-							<label class="mdl-textfield__label" for="sample1"></label>
-						</div>
-					</div>
-					<div class="filter-checkbox">
-						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="local-checkbox">
-							<input type="checkbox" id="local-checkbox" class="mdl-checkbox__input"/>
-							<label for="local-checkbox">Localização</label>
-						</label>
-					</div>
-					<div id="filter-local-fields">
-						<div class="filter-row">
-							<div class="filter-label">
-								<h6>Unidade acadêmica:</h6>
-							</div>
-							<div class="mdl-textfield mdl-js-textfield filter-field">
-								<select class="mdl-textfield__input" id="unity" name="unity">
-									<option value="Centro de Educação Aberta e a Distância (CEAD)">Centro de Educação Aberta e a Distância (CEAD)</option>
-									<option value="87">Centro Desportivo da UFOP (CEDUFOP)</option>
-									<option value="Escola de Direito, Turismo e Museologia (EDTM)">Escola de Direito, Turismo e Museologia (EDTM)</option>
-									<option value="Escola de Farmácia">Escola de Farmácia</option>
-									<option value="Escola de Minas">Escola de Minas</option>
-									<option value="Escola de Medicina">Escola de Medicina</option>
-									<option value="Escola de Nutrição">Escola de Nutrição</option>
-									<option value="Instituto de Ciências Exatas e Aplicadas (ICEA)">Instituto de Ciências Exatas e Aplicadas (ICEA)</option>
-									<option value="Instituto de Ciências Exatas e Biológicas">Instituto de Ciências Exatas e Biológicas</option>
-									<option value="Instituto de Ciências Humanas e Sociais (ICHS)">Instituto de Ciências Humanas e Sociais (ICHS)</option>
-									<option value="Instituto de Ciências Sociais Aplicadas (ICSA)">Instituto de Ciências Sociais Aplicadas (ICSA)</option>
-									<option value="Instituto de Filosofia, Arte e Cultura (IFAC)">Instituto de Filosofia, Arte e Cultura (IFAC)</option>
-								</select>
-							</div>
-						</div>
-						<div class="filter-row">
-							<div class="filter-label">
-								<h6>Bloco:</h6>
-							</div>
-							<div class="mdl-textfield mdl-js-textfield filter-field">
-								<input class="mdl-textfield__input" type="text" id="sample1" name="bloco" >
-								<label class="mdl-textfield__label" for="sample1"></label>	
-							</div>
-						</div>
-						<div class="filter-row">
-							<div class="filter-label">
-								<h6>Sala:</h6>
-							</div>
-							<div class="mdl-textfield mdl-js-textfield filter-field">
-								<input class="mdl-textfield__input" type="text" id="sample1" name="sala" >
-								<label class="mdl-textfield__label" for="sample1"></label>	
-							</div>
+							<input class="mdl-textfield__input" type="text" id="name-input" name="name" />
+							<label class="mdl-textfield__label" for="name-input"></label>
 						</div>
 					</div>
 					<div class="filter-checkbox">
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="date-checkbox">
 							<input type="checkbox" id="date-checkbox" class="mdl-checkbox__input"/>
-							<label for="date-checkbox">Data de entrada</label>
+							<label for="date-checkbox">Data de nascimento</label>
 						</label>
 					</div>
 					<div id="filter-date-fields">
@@ -128,19 +70,15 @@
 						</div>
 					</div>
 					<div class="filter-checkbox">
-						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="state-checkbox">
-							<input type="checkbox" id="state-checkbox" class="mdl-checkbox__input"/>
-							<label for="state-checkbox">Estado</label>
+						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="depto-checkbox">
+							<input type="checkbox" id="depto-checkbox" class="mdl-checkbox__input"/>
+							<label for="depto-checkbox">Departamento</label>
 						</label>
 					</div>
-					<div id="filter-state-fields">
+					<div id="filter-depto-fields">
 						<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
-							<select class="mdl-textfield__input" id="state" name="state">
-								<option value="Normal">Normal</option>
-								<option value="Quebrado">Quebrado</option>
-								<option value="Consertado">Consertado</option>
-							</select>
-							<label class="mdl-textfield__label" for="state">Estado</label>
+							<input class="mdl-textfield__input" type="text" id="depto-input" name="depto" />
+							<label class="mdl-textfield__label" for="depto-input"></label>
 						</div>
 					</div>
 				</form>
@@ -179,39 +117,12 @@
 		</main>
 	</div>
 
-	<script src="scripts/filterScript.js"></script>
+	<script src="scripts/filterScriptOperators.js"></script>
 	<script src="scripts/createOperatorsList.js" ></script>
 	<script src="scripts/deleteSelectedOperators.js"></script>
 	<script>
 		$( document ).ready(function() {
 			$(':checkbox').prop('checked',false); //This would clear all inputs.
-		});
-
-		$("#search-form").submit(function(e){
-			e.preventDefault();
-			let searchQuery = document.forms["search-form"]["id-search-input"].value;
-			$.ajax({
-				url: "http://"+Url.url+"getOperator/?id="+searchQuery,
-				type: 'get',
-				headers: {"Authorization": localStorage.getItem("token")},
-				cache: false
-			}).done(function(response){
-                sessionStorage.setItem("objData", response);
-				let item = JSON.parse(response);
-				if(item){
-					window.location.href = "editOperator.php";
-				} else {
-					let dialog = document.querySelector('#obj-not-found-dialog');
-					if (! dialog.showModal) {
-						dialogPolyfill.registerDialog(dialog);
-					}
-					dialog.querySelector('.close').addEventListener('click', function() {
-						dialog.close();
-					});
-					dialog.showModal();
-				}
-				
-			});
 		});
 	</script>
 

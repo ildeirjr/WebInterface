@@ -195,7 +195,7 @@
         document.querySelector("#item-id").innerHTML = item.codigo;
         document.querySelector("#item-state").innerHTML = item.estado;
         document.querySelector("#item-description").innerHTML = item.descricao;
-        document.querySelector("#item-date").innerHTML = new Date(item.data_entrada).toLocaleDateString("PT-br");
+        document.querySelector("#item-date").innerHTML = new Date(item.data_entrada).toLocaleDateString("PT-br", {timeZone: 'UTC'});
         document.querySelector("#item-unity").innerHTML = item.unidade;
         document.querySelector("#item-block").innerHTML = item.bloco;
         document.querySelector("#item-room").innerHTML = item.sala;

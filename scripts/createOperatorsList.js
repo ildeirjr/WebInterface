@@ -2,7 +2,7 @@ function addElement(item, listIndex){
     var li = document.createElement('li');
     li.setAttribute("class","mdl-list__item mdl-list__item--two-line");
     li.onclick = function(){
-        sessionStorage.setItem("objData", JSON.stringify(item));
+        sessionStorage.setItem("userData", JSON.stringify(item));
         window.location.href = "editOperator.php";
     }
 
@@ -23,9 +23,8 @@ function addElement(item, listIndex){
 
     $(checkBox).click(function(){
         let clickIndex = $(this).parent().parent().index();
-        let itemId = $(this).parent().parent().children().eq(2).children().eq(1).html();
         if($(this).prop("checked")){
-            indexArray.push({index: clickIndex, id: itemId, html: null});
+            indexArray.push({index: clickIndex, id: item.email, html: null});
         } else {
             let idx = indexArray.map(function(e){return e.index;}).indexOf(clickIndex);
             indexArray.splice(idx,1);
@@ -63,7 +62,7 @@ function addElement(item, listIndex){
 
     var itemDate = document.createElement('span');
     itemDate.setAttribute("class","mdl-list__item-secondary-info");
-    itemDate.innerHTML = new Date(item.data_nasc).toLocaleDateString("pt-BR");
+    itemDate.innerHTML = new Date(item.data_nasc).toLocaleDateString("pt-BR", {timeZone: 'UTC'});
 
     primaryContent.appendChild(i);
     primaryContent.appendChild(itemName);
@@ -108,13 +107,12 @@ function loadData(page, windowSize){
     });
 }
 
-function loadFilteredData(mode, page, windowSize, params){
+function loadFilteredData(page, windowSize, params){
     $.ajax({
-        url: "http://"+Url.url+"filter/",
+        url: "http://"+Url.url+"filterOperators/",
         type: 'get',
         headers: {"Authorization": localStorage.getItem("token")},
         data: {
-            'mode': mode,
             'num_page': page,
             'window_size': windowSize,
             'filter_params': params
@@ -139,7 +137,7 @@ $('main').scroll(function(){
     if($('main').scrollTop() >= $('#obj-list').height() - $(document).height()){
         pageCount += windowSize;
         if(filterOn){
-            loadFilteredData(mode, pageCount, windowSize, filterParams);
+            loadFilteredData(pageCount, windowSize, filterParams);
         } else {
             loadData(pageCount, windowSize);
         }

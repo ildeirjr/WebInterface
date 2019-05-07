@@ -60,19 +60,13 @@
                     </div>
 
                     <div id="email-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                        <textarea class="mdl-textfield__input" type="email" name="email" ></textarea>
+                        <input class="mdl-textfield__input" type="email" name="email">
                         <label class="mdl-textfield__label" for="email">E-mail</label>
-                        <span class="mdl-textfield__error">Este campo não pode ser vazio</span>
-                    </div>
-
-                    <div id="password-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                        <input class="mdl-textfield__input" type="password" name="senha">
-                        <label class="mdl-textfield__label" for="senha">Senha</label>
-                        <span class="mdl-textfield__error">Este campo não pode ser vazio</span>
+                        <span id="email-error-msg" class="mdl-textfield__error">Endereço de e-mail inválido</span>
                     </div>
 
                     <div id="date-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                        <input class="mdl-textfield__input" type="text" name="data_nasc" id="date">
+                        <input class="mdl-textfield__input" type="date" name="data_nasc" id="date">
                         <label class="mdl-textfield__label" for="data_nasc">Data de nascimento</label>
                         <span id="date-error-msg" class="mdl-textfield__error">Data inválida</span>
                     </div>
@@ -82,7 +76,22 @@
                         <label class="mdl-textfield__label" for="depto">Departamento</label>
                         <span class="mdl-textfield__error">Este campo não pode ser vazio</span>
                     </div>
+
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--4-col">
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="password-checkbox">
+								<input type="checkbox" id="password-checkbox" class="mdl-checkbox__input"/>
+								<label for="password-checkbox">Redefinir senha</label>
+							</label>
+						</div>
+						<div id="password-field" class="mdl-cell mdl-cell--8-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-disabled">
+							<input class="mdl-textfield__input" id="password-input" type="password" name="senha" disabled="true">
+							<label class="mdl-textfield__label" for="senha">Senha</label>
+							<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
+						</div>
+					</div>
                     <input type="text" name="emailAntigo" value="" hidden>
+					<input type="text" name="alterarSenha" value="false" hidden>
                 </form>
 			</div>
 		</main>
@@ -91,13 +100,27 @@
 
 <script>
 
-	var item = JSON.parse(sessionStorage.getItem("objData"));
+	var item = JSON.parse(sessionStorage.getItem("userData"));
 	document.forms["form-cadastro"]["nome"].value = item.nome;
 	document.forms["form-cadastro"]["email"].value = item.email;
-	document.forms["form-cadastro"]["senha"].value = item.senha;
 	document.forms["form-cadastro"]["data_nasc"].value = item.data_nasc;
     document.forms["form-cadastro"]["depto"].value = item.depto;
-    document.forms["form-cadastro"]["emailAntigo"].value = item.email;
+	document.forms["form-cadastro"]["emailAntigo"].value = item.email;
+
+	var passCheckbox = document.querySelector("#password-checkbox");
+	var passField = document.querySelector("#password-field");
+	var passInput = document.querySelector("#password-input");
+	passCheckbox.onclick = function() {
+		if(passCheckbox.checked){
+			passField.classList.remove("is-disabled");
+			passInput.disabled = false;
+			document.forms["form-cadastro"]["alterarSenha"].value = "true";
+		} else {
+			passField.classList.add("is-disabled");
+			passInput.disabled = true;
+			document.forms["form-cadastro"]["alterarSenha"].value = "false";
+		}
+	}
 
 </script>
 
