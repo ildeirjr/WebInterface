@@ -30,7 +30,7 @@
 								<i class="material-icons">search</i>
 							</label>
 							<div class="mdl-textfield__expandable-holder">
-								<input class="mdl-textfield__input" type="number" name="id-search-input" id="id-search-input" placeholder="Pesquisar por código">
+								<input class="mdl-textfield__input" type="number" name="id-search-input" id="id-search-input" placeholder="Pesquisar tombamento">
 								<label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
 							</div>
 						</div>
@@ -47,7 +47,7 @@
 					<div class="filter-checkbox">
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="name-checkbox">
 							<input type="checkbox" id="name-checkbox" class="mdl-checkbox__input"/>
-							<label for="name-checkbox">Nome</label>
+							<label for="name-checkbox">Descrição do bem</label>
 						</label>
 					</div>
 					<div id="filter-name-fields">
@@ -130,17 +130,31 @@
 					<div class="filter-checkbox">
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="state-checkbox">
 							<input type="checkbox" id="state-checkbox" class="mdl-checkbox__input"/>
-							<label for="state-checkbox">Estado</label>
+							<label for="state-checkbox">Situação</label>
 						</label>
 					</div>
 					<div id="filter-state-fields">
 						<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
 							<select class="mdl-textfield__input" id="state" name="state">
-								<option value="Normal">Normal</option>
-								<option value="Quebrado">Quebrado</option>
-								<option value="Consertado">Consertado</option>
+								<option value="Alocado">Alocado</option>
+								<option value="Cedido em comodato">Cedido em comodato</option>
+								<option value="Cedido em doacao">Cedido em doacao</option>
+								<option value="Cessao de uso">Cessao de uso</option>
+								<option value="Em deposito p/ baixa">Em deposito p/ baixa</option>
+								<option value="Em deposito p/ redistribuicao">Em deposito p/ redistribuicao</option>
+								<option value="Em manutencao">Em manutencao</option>
+								<option value="Emprestado">Emprestado</option>
+								<option value="Nao incorporado">Nao incorporado</option>
+								<option value="Nao localizado">Nao localizado</option>
+								<option value="Ocioso">Ocioso</option>
+								<option value="Permuta">Permuta</option>
+								<option value="Reavaliacao">Reavaliacao</option>
+								<option value="Recebido em comodato">Recebido em comodato</option>
+								<option value="Recebido em doacao">Recebido em doacao</option>
+								<option value="Sinistrado">Sinistrado</option>
+								<option value="Sucateado">Sucateado</option>
 							</select>
-							<label class="mdl-textfield__label" for="state">Estado</label>
+							<label class="mdl-textfield__label" for="state">Situação</label>
 						</div>
 					</div>
 				</form>

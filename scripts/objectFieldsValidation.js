@@ -15,6 +15,9 @@ function dataValidation(){
     let noteField = document.querySelector("#note-field");
     let noteInput = document.forms["form-cadastro"]["nota"];
 
+    let empenhoField = document.querySelector("#empenho-field");
+    let empenhoInput = document.forms["form-cadastro"]["empenho"];
+
     let roomField = document.querySelector("#room-field");
     let roomInput = document.forms["form-cadastro"]["sala"];
 
@@ -41,11 +44,14 @@ function dataValidation(){
         noteField.classList.add("is-invalid");
         document.querySelector("#note-error-msg").innerHTML = "Este campo não pode ser vazio";
     }
+    if(empenhoInput.value == ""){
+        empenhoField.classList.add("is-invalid");
+    }
     if(roomInput.value == ""){
         roomField.classList.add("is-invalid");
     }
 
-    let inputFields = [idField, nameField, dateField, responsibleField, noteField, roomField];
+    let inputFields = [idField, nameField, dateField, responsibleField, noteField, empenhoField, roomField];
 
     let hasInvalidField = false;
 

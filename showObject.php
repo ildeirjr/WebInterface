@@ -94,28 +94,35 @@
                     <h3 id="object-name-title"></h3>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
-                            Código
+                            Tombamento
                         </div>
                         <div id="item-id" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
-                            Estado
+                            Situação
                         </div>
                         <div id="item-state" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
-                            Descrição
+                            Conservação
+                        </div>
+                        <div id="item-conservation" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Especificação
                         </div>
                         <div id="item-description" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
-                            Data de entrada
+                            Data de compra
                         </div>
                         <div id="item-date" class="show-object-item-secondary">
                         </div>
@@ -143,16 +150,23 @@
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
-                            Recebedor
+                            Responsável
                         </div>
                         <div id="item-responsible" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
-                            Nota fiscal
+                            Processo compra
                         </div>
                         <div id="item-note" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Empenho
+                        </div>
+                        <div id="item-empenho" class="show-object-item-secondary">
                         </div>
                     </div>
                     <div id="div-delete-user" class="show-object-item" style="display: none;">
@@ -194,6 +208,7 @@
         document.querySelector("#object-name-title").innerHTML = item.nome;
         document.querySelector("#item-id").innerHTML = item.codigo;
         document.querySelector("#item-state").innerHTML = item.estado;
+        document.querySelector("#item-conservation").innerHTML = item.conservacao;
         document.querySelector("#item-description").innerHTML = item.descricao;
         document.querySelector("#item-date").innerHTML = new Date(item.data_entrada).toLocaleDateString("PT-br", {timeZone: 'UTC'});
         document.querySelector("#item-unity").innerHTML = item.unidade;
@@ -201,6 +216,7 @@
         document.querySelector("#item-room").innerHTML = item.sala;
         document.querySelector("#item-responsible").innerHTML = item.quem_recebeu;
         document.querySelector("#item-note").innerHTML = item.nota;
+        document.querySelector("#item-empenho").innerHTML = item.empenho;
         document.querySelector("#item-delete-user").innerHTML = item.op_exclusao_id;
         document.querySelector("#item-delete-date").innerHTML = new Date(item.tempo_exclusao).toLocaleDateString("PT-br") + " - " 
                                                                 + new Date(item.tempo_exclusao).getHours() + ":"

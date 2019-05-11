@@ -64,37 +64,43 @@
 
 						<div id="id-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="codigo">
-							<label class="mdl-textfield__label" for="codigo">Código</label>
+							<label class="mdl-textfield__label" for="codigo">Tombamento</label>
 							<span id="id-error-msg" class="mdl-textfield__error">Este campo só pode conter números</span>
 						</div>
 
 						<div id="name-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<input class="mdl-textfield__input" type="text" id="nome" name="nome">
-							<label class="mdl-textfield__label" for="nome">Nome</label>
+							<label class="mdl-textfield__label" for="nome">Descrição do bem</label>
 							<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 						</div>
 
 						<div id="description-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<textarea class="mdl-textfield__input" type="text" rows= "2" name="descricao" ></textarea>
-							<label class="mdl-textfield__label" for="descricao">Descrição</label>
+							<label class="mdl-textfield__label" for="descricao">Especificação</label>
 						</div>
 
 						<div id="date-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<input class="mdl-textfield__input" type="text" name="data_entrada" id="date">
-							<label class="mdl-textfield__label" for="data">Data de entrada</label>
+							<label class="mdl-textfield__label" for="data">Data de compra</label>
 							<span id="date-error-msg" class="mdl-textfield__error">Data inválida</span>
 						</div>
 
 						<div id="responsible-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<input class="mdl-textfield__input" type="text" name="recebeu">
-							<label class="mdl-textfield__label" for="recebeu">Recebedor</label>
+							<label class="mdl-textfield__label" for="recebeu">Responsável</label>
 							<span class="mdl-textfield__error">Este campo não pode ser vazio</span>
 						</div>
 
 						<div id="note-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="nota">
-							<label class="mdl-textfield__label" for="nota">Nota fiscal</label>
+							<label class="mdl-textfield__label" for="nota">Processo compra</label>
 							<span id="note-error-msg" class="mdl-textfield__error">Este campo só pode conter números</span>
+						</div>
+
+						<div id="empenho-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+							<input class="mdl-textfield__input" type="text" name="empenho">
+							<label class="mdl-textfield__label" for="empenho">Empenho</label>
+							<span id="empenho-error-msg" class="mdl-textfield__error">Este campo não pode ser vazio</span>
 						</div>
 
 						<div id="unity-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -128,11 +134,42 @@
 
 						<div id="state-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<select class="mdl-textfield__input" id="state" name="estado">
-								<option value="Normal">Normal</option>
-								<option value="Quebrado">Quebrado</option>
-								<option value="Consertado">Consertado</option>
+								<option value="Alocado" selected>Alocado</option>
+								<option value="Cedido em comodato">Cedido em comodato</option>
+								<option value="Cedido em doacao">Cedido em doacao</option>
+								<option value="Cessao de uso">Cessao de uso</option>
+								<option value="Em deposito p/ baixa">Em deposito p/ baixa</option>
+								<option value="Em deposito p/ redistribuicao">Em deposito p/ redistribuicao</option>
+								<option value="Em manutencao">Em manutencao</option>
+								<option value="Emprestado">Emprestado</option>
+								<option value="Nao incorporado">Nao incorporado</option>
+								<option value="Nao localizado">Nao localizado</option>
+								<option value="Ocioso">Ocioso</option>
+								<option value="Permuta">Permuta</option>
+								<option value="Reavaliacao">Reavaliacao</option>
+								<option value="Recebido em comodato">Recebido em comodato</option>
+								<option value="Recebido em doacao">Recebido em doacao</option>
+								<option value="Sinistrado">Sinistrado</option>
+								<option value="Sucateado">Sucateado</option>
 							</select>
-							<label class="mdl-textfield__label" for="state">Estado</label>
+							<label class="mdl-textfield__label" for="state">Situação</label>
+						</div>
+
+						<div id="conservation-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+							<select class="mdl-textfield__input" id="conservation" name="conservacao">
+								<option value="Alienado">Alienado</option>
+								<option value="Antieconomico">Antieconomico</option>
+								<option value="Bom" selected>Bom</option>
+								<option value="Doado">Doado</option>
+								<option value="Irrecuperavel">Irrecuperavel</option>
+								<option value="Obsoleto">Obsoleto</option>
+								<option value="Outros">Outros</option>
+								<option value="Peca de museu">Peca de museu</option>
+								<option value="Precario">Precario</option>
+								<option value="Recuperavel">Recuperavel</option>
+								<option value="Sucateado">Sucateado</option>
+							</select>
+							<label class="mdl-textfield__label" for="conservation">Conservação</label>
 						</div>
 						<input type="text" name="base64_img" value="" hidden>
 						<input type="text" name="base64_thumb" value="" hidden>
