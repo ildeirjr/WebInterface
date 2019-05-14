@@ -77,11 +77,11 @@ if(isset($_SESSION['token'])){
         <h3 class="text-center font-weight-light mb-0" style="margin: 40px">Comece a sua busca por objetos informando os dados abaixo.</h3>
         <div class="row" style="margin-top: 40px">
 	        <div class="col-lg-8 mx-auto">
-	          <form name="searchObject" id="searchForm" novalidate="novalidate">
+	          <form name="search-object" id="search-object">
 	              <div class="control-group">
 	                <div class="form-group controls mb-0 pb-2">
 	                  <label>Nome do objeto</label>
-	                  <input class="form-control" id="name" type="text" required="required" data-validation-required-message="Please enter your email address.">
+	                  <input class="form-control" name="name" id="name" type="text" data-validation-required-message="Please enter your email address.">
 	                  <p class="help-block text-danger"></p>
 	                </div>
 	              </div>
@@ -90,7 +90,7 @@ if(isset($_SESSION['token'])){
 	              		<div class="control-group">
 	                		<div class="form-group controls mb-0 pb-2">
 	                  			<label>Data inicial</label>
-	                  			<input class="form-control" id="start_date" type="date" placeholder="Data inicial" required="required" data-validation-required-message="Please enter your phone number.">
+	                  			<input class="form-control" name="start_date" id="start_date" type="date" placeholder="Data inicial" data-validation-required-message="Please enter your phone number.">
 	                  			<p class="help-block text-danger"></p>
 	                		</div>
 	              		</div>
@@ -99,7 +99,7 @@ if(isset($_SESSION['token'])){
 	              		<div class="control-group">
 	                		<div class="form-group controls mb-0 pb-2">
 	                  			<label>Data final</label>
-	                  			<input class="form-control" id="final_date" type="date" placeholder="Data final" required="required" data-validation-required-message="Please enter your phone number.">
+	                  			<input class="form-control" name="final_date" id="final_date" type="date" placeholder="Data final" data-validation-required-message="Please enter your phone number.">
 	                  			<p class="help-block text-danger"></p>
 	                		</div>
 	              		</div>
@@ -167,6 +167,28 @@ if(isset($_SESSION['token'])){
 
     <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
+
+    <script type="text/javascript">
+      $("#search-object").submit(function(e){
+        e.preventDefault();
+
+        data = {};
+
+        data['name'] = document.forms["search-object"]["name"].value;
+        data['start_date'] = document.forms["search-object"]["start_date"].value;
+        data['end_date'] = document.forms["search-object"]["final_date"].value;
+
+        data['unity'] = "";
+        data['bloco'] = "";
+        data['sala'] = "";
+        data['state'] = "";
+
+        localStorage.setItem("comumUserFilteredData", JSON.stringify(data));
+
+        window.location.href = "listObjComumUser.html";
+
+      });
+    </script>
 
   </body>
 

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Visualizar objeto</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-lime.min.css" />
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="style.css">
+	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="Url.js"></script>
+	<script src="scripts/tokenValidation.js" ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title">Visualizar objeto</span>
+				<div class="mdl-layout-spacer"></div>
+				<nav class="mdl-navigation">
+                    
+				</nav>
+			</div>
+		</header>
+
+		<main class="mdl-layout__content mdl-color--grey-100">
+            <div class="show-object-container">
+                <div class="show-object-text">
+                    <h3 id="object-name-title"></h3>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Tombamento
+                        </div>
+                        <div id="item-id" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Situação
+                        </div>
+                        <div id="item-state" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Conservação
+                        </div>
+                        <div id="item-conservation" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Especificação
+                        </div>
+                        <div id="item-description" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Data de compra
+                        </div>
+                        <div id="item-date" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Unidade acadêmica
+                        </div>
+                        <div id="item-unity" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Bloco/Prédio
+                        </div>
+                        <div id="item-block" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Sala
+                        </div>
+                        <div id="item-room" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Responsável
+                        </div>
+                        <div id="item-responsible" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Processo compra
+                        </div>
+                        <div id="item-note" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div class="show-object-item">
+                        <div class="show-object-item-primary">
+                            Empenho
+                        </div>
+                        <div id="item-empenho" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div id="div-delete-user" class="show-object-item" style="display: none;">
+                        <div class="show-object-item-primary">
+                            Excluído por
+                        </div>
+                        <div id="item-delete-user" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                    <div id="div-delete-date" class="show-object-item" style="display: none;">
+                        <div class="show-object-item-primary">
+                            Data da exclusão
+                        </div>
+                        <div id="item-delete-date" class="show-object-item-secondary">
+                        </div>
+                    </div>
+                </div>
+                <div class="show-object-image">
+                    <img class="object-image" src="" alt="">
+                </div>
+            </div>
+		</main>
+	</div>
+</body>
+
+<script>
+    let itemId = new URLSearchParams(window.location.search).get('id');
+    var item;
+    $.ajax({
+        url: "http://"+Url.url+"getObject/?id="+itemId,
+        type: 'get',
+        headers: {
+            "Authorization": "1gdh87efuhwi"
+        },
+        cache: false
+    }).done(function(response){
+        sessionStorage.setItem("objData", response);
+        item = JSON.parse(response);
+        document.querySelector("#object-name-title").innerHTML = item.nome;
+        document.querySelector("#item-id").innerHTML = item.codigo;
+        document.querySelector("#item-state").innerHTML = item.estado;
+        document.querySelector("#item-conservation").innerHTML = item.conservacao;
+        document.querySelector("#item-description").innerHTML = item.descricao;
+        document.querySelector("#item-date").innerHTML = new Date(item.data_entrada).toLocaleDateString("PT-br", {timeZone: 'UTC'});
+        document.querySelector("#item-unity").innerHTML = item.unidade;
+        document.querySelector("#item-block").innerHTML = item.bloco;
+        document.querySelector("#item-room").innerHTML = item.sala;
+        document.querySelector("#item-responsible").innerHTML = item.quem_recebeu;
+        document.querySelector("#item-note").innerHTML = item.nota;
+        document.querySelector("#item-empenho").innerHTML = item.empenho;
+        document.querySelector("#item-delete-user").innerHTML = item.op_exclusao_id;
+        document.querySelector("#item-delete-date").innerHTML = new Date(item.tempo_exclusao).toLocaleDateString("PT-br") + " - " 
+                                                                + new Date(item.tempo_exclusao).getHours() + ":"
+                                                                + new Date(item.tempo_exclusao).getMinutes();
+        if(item.foto == "null.jpg"){
+            document.querySelector(".object-image").src = "http://"+Url.url+"photos/default.jpg";
+        } else {
+            document.querySelector(".object-image").src = "http://"+Url.url+"photos/"+item.foto;
+        }
+        if(item.estado == 'Excluido'){
+            document.querySelector("#restore-button").style.display = "block";
+            document.querySelector("#div-delete-user").style.display = "block";
+            document.querySelector("#div-delete-date").style.display = "block";
+        } else {
+            document.querySelector("#delete-button").style.display = "block";
+            document.querySelector("#edit-button").style.display = "block";
+        }
+    });
+</script>
+
+</html>
