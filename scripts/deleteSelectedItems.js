@@ -55,7 +55,7 @@ deleteBtn.onclick = function() {
     selectModeOff();
 
     let handler = function () {
-        clearTimeout(deleteTimeOut);
+        restoreItems();
         indexArrayCopy.forEach((element) => {
             list.insertBefore(element.html, list.childNodes[element.index]);
             $(list.childNodes[element.index].childNodes[0].childNodes[0]).prop('checked', false);
@@ -72,7 +72,7 @@ deleteBtn.onclick = function() {
         actionText: 'Desfazer'
     };
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    let deleteTimeOut = setTimeout(deleteItems, 2100);
+    deleteItems();
 }
 
 var restoreBtn = document.querySelector("#restore-button");
@@ -87,7 +87,7 @@ restoreBtn.onclick = function() {
     selectModeOff();
 
     let handler = function () {
-        clearTimeout(restoreTimeOut);
+        restoreItemsUndo();
         indexArrayCopy.forEach((element) => {
             list.insertBefore(element.html, list.childNodes[element.index]);
             $(list.childNodes[element.index].childNodes[0].childNodes[0]).prop('checked', false);
@@ -103,7 +103,7 @@ restoreBtn.onclick = function() {
         actionText: 'Desfazer'
     };
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    let restoreTimeOut = setTimeout(restoreItems, 2100);
+    restoreItems();
 }
 
 function deleteItems() {
@@ -114,7 +114,7 @@ function deleteItems() {
             headers: {"Authorization": localStorage.getItem("token")},
             data: {
                 "id": element.id,
-                "delete_user": localStorage.getItem("idUser")
+                "delete_user": localStorage.getItem("nome")
             },
             cache: false
         }).done();
@@ -129,6 +129,20 @@ function restoreItems() {
             headers: {"Authorization": localStorage.getItem("token")},
             data: {
                 "id": element.id,
+            },
+            cache: false
+        }).done();
+    });
+}
+
+function restoreItemsUndo(){
+    indexArrayCopy.forEach((element) => {
+        $.ajax({
+            url: "http://"+Url.url+"deleteUndo/",
+            type: 'post',
+            headers: {"Authorization": localStorage.getItem("token")},
+            data: {
+                "id": element.id
             },
             cache: false
         }).done();

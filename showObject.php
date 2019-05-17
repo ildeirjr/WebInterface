@@ -270,7 +270,7 @@
                 },
                 data: {
                     id: item.codigo,
-                    delete_user: localStorage.getItem("idUser")
+                    delete_user: localStorage.getItem("nome")
                 }
             }).done(function(response){
                 let responseDialog = document.querySelector("#response-dialog");
