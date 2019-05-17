@@ -30,7 +30,7 @@
 		<?php include "drawer_menu.php"; ?>
 
 		<dialog id="filter-dialog" class="mdl-dialog">
-			<h4 class="mdl-dialog__title">Filtrar objetos por</h4>
+			<h4 class="mdl-dialog__title">Filtrar operadores por</h4>
 			<div class="mdl-dialog__content">
 				<form name="form-filter" id="form-filter">
 					<div class="filter-checkbox">
@@ -106,14 +106,20 @@
 			<button class="mdl-snackbar__action" type="button"></button>
 		</div>
 
-		<main class="mdl-layout__content mdl-color--grey-100" id="listar">	
+		<main class="mdl-layout__content mdl-color--grey-100" id="listar">
+			<div id="div-spinner" class="container">
+				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active center"></div>
+			</div>
 			<ul id="obj-list" class="demo-list-two mdl-list"></ul>
 			<button id="filter-button" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
   				<i class="material-icons">filter_list</i>
 			</button>
-			<!-- <div id="div-load-more-button">
+			<div id="div-load-more-button">
 				<button id="load-more-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Carregar mais itens</button>
-			</div> -->
+			</div>
+			<div id="spinner-bottom" style="text-align: -webkit-center;">
+				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+			</div>
 		</main>
 	</div>
 

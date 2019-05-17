@@ -63,7 +63,7 @@
 			</div>
   		</dialog>
 
-          <dialog id="restore-dialog" class="mdl-dialog">
+        <dialog id="restore-dialog" class="mdl-dialog">
 			<h4 class="mdl-dialog__title">Restaurar</h4>
 			<div class="mdl-dialog__content">
 				<p id="dialog-msg">
@@ -73,6 +73,14 @@
 			<div class="mdl-dialog__actions">
                 <button type="button" id="restore-yes-button" class="mdl-button">Sim</button>
 				<button type="button" id="restore-no-button" class="mdl-button close">Não</button>
+			</div>
+          </dialog>
+          
+          <dialog id="loading-dialog" class="mdl-dialog">
+			<div class="mdl-dialog__content">
+                <div id="div-spinner" class="container">
+                    <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active center"></div>
+                </div>
 			</div>
   		</dialog>
 
@@ -89,7 +97,7 @@
   		</dialog>
 
 		<main class="mdl-layout__content mdl-color--grey-100">
-            <div class="show-object-container">
+            <div id="div-show-object" class="show-object-container" >
                 <div class="show-object-text">
                     <h3 id="object-name-title"></h3>
                     <div class="show-object-item">
@@ -221,11 +229,16 @@
         document.querySelector("#item-delete-date").innerHTML = new Date(item.tempo_exclusao).toLocaleDateString("PT-br") + " - " 
                                                                 + new Date(item.tempo_exclusao).getHours() + ":"
                                                                 + new Date(item.tempo_exclusao).getMinutes();
+
         if(item.foto == "null.jpg"){
             document.querySelector(".object-image").src = "http://"+Url.url+"photos/default.jpg";
         } else {
             document.querySelector(".object-image").src = "http://"+Url.url+"photos/"+item.foto;
         }
+
+        
+
+        
         if(item.estado == 'Excluido'){
             document.querySelector("#restore-button").style.display = "block";
             document.querySelector("#div-delete-user").style.display = "block";
@@ -238,6 +251,7 @@
 </script>
     
 <script>
+    var loadingDialog = document.querySelector("#loading-dialog");
     let deleteButton = document.querySelector("#delete-button");
     deleteButton.onclick = function(){
         let deleteDialog = document.querySelector("#delete-dialog");
@@ -246,6 +260,7 @@
             deleteDialog.close();
         }
         document.querySelector("#yes-button").onclick = function(){
+            loadingDialog.showModal();
             deleteDialog.close();
             $.ajax({
                 url: "http://"+Url.url+"delete/",
@@ -259,6 +274,7 @@
                 }
             }).done(function(response){
                 let responseDialog = document.querySelector("#response-dialog");
+                loadingDialog.close();
                 responseDialog.showModal();
                 document.querySelector("#ok-button").onclick = function(){
                     responseDialog.close();
@@ -281,6 +297,7 @@
             restoreDialog.close();
         }
         document.querySelector("#restore-yes-button").onclick = function(){
+            loadingDialog.showModal();
             restoreDialog.close();
             $.ajax({
                 url: "http://"+Url.url+"restore/",
@@ -292,6 +309,7 @@
                     id: item.codigo,
                 }
             }).done(function(response){
+                loadingDialog.close();
                 let responseDialog = document.querySelector("#restore-response-dialog");
                 responseDialog.showModal();
                 document.querySelector("#restore-ok-button").onclick = function(){

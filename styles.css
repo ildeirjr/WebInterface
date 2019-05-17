@@ -230,8 +230,3 @@ _:-ms-input-placeholder, :root .demo-graph {
 li:hover {
   background-color: #EEE;
 }
-
-#div-load-more-button {
-  padding: 10px;
-  text-align: center;
-}

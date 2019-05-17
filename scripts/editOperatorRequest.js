@@ -1,6 +1,9 @@
 $('#form-cadastro').submit(function(e) {
     e.preventDefault();
 
+    let loadingDialog = document.querySelector("#loading-dialog");
+    loadingDialog.showModal();
+
     let that = $(this),
         url =  "http://"+Url.url+"editOperator/",
         type = 'post',
@@ -21,8 +24,7 @@ $('#form-cadastro').submit(function(e) {
         headers: header,
         data: data
     }).done(function(response){
-
-        console.log(response);
+        loadingDialog.close();
         let dialogTitle, dialogMsg;
 
         if(response == "23000"){
@@ -30,9 +32,12 @@ $('#form-cadastro').submit(function(e) {
             dialogMsg = "O email informado já está associado a um operador";
             showDialog(dialogTitle, dialogMsg);
         } else if(response == "00000"){
-            console.log(data);
             dialogTitle = "Sucesso!";
             dialogMsg = "Operador editado";
+            localStorage.setItem("nome", data['nome']);
+            localStorage.setItem("email", data['email']);
+            localStorage.setItem("data_nasc", data['data_nasc']);
+            localStorage.setItem("depto", data['depto']);
             showDialog(dialogTitle, dialogMsg);
         } else {
             dialogTitle = "Erro";

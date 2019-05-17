@@ -88,6 +88,9 @@ function clearList(){
 }
 
 function appendArrayToList(itemArray){
+    if(itemArray.length < windowSize){
+        document.querySelector("#load-more-button").style.display = "none";
+    }
     itemArray.forEach((element, index) => {
         list.appendChild(addElement(element, index + pageCount));
     });
@@ -100,10 +103,13 @@ function loadData(page, windowSize){
         headers: {
             "Authorization": localStorage.getItem("token")
         },
-        cache: false,
-        async: false
+        cache: false
     }).done(function(response){
+        loadingButtonOff();
         appendArrayToList(JSON.parse(response));
+        document.querySelector("#div-spinner").style.display = "none";
+        document.querySelector("#obj-list").style.display = "block";
+        document.querySelector("#filter-button").style.display = "block";
     });
 }
 
@@ -118,28 +124,38 @@ function loadFilteredData(page, windowSize, params){
             'filter_params': params
         }
     }).done(function(response){
+        loadingButtonOff();
         appendArrayToList(JSON.parse(response));
+        document.querySelector("#div-spinner").style.display = "none";
+        document.querySelector("#obj-list").style.display = "block";
     });
 }
 
 const windowSize = 15;
 var pageCount = 0;
 
+
+document.querySelector("#filter-button").style.display = "none";
+document.querySelector("#obj-list").style.display = "none";
+document.querySelector("#div-spinner").style.display = "block";
 loadData(pageCount, windowSize);
 
-// document.querySelector("#load-more-button").onclick = function(){
-//     pageCount += windowSize;
-//     loadData("non_deleted", pageCount, windowSize);
-// }
-
-$('main').scroll(function(){
-    //console.log(`ScrollTop: ${$('main').scrollTop()}, MainHeight: ${$('main').height()}, ListHeight: ${$('#obj-list').height()}`)
-    if($('main').scrollTop() >= $('#obj-list').height() - $(document).height()){
-        pageCount += windowSize;
-        if(filterOn){
-            loadFilteredData(pageCount, windowSize, filterParams);
-        } else {
-            loadData(pageCount, windowSize);
-        }
+document.querySelector("#load-more-button").onclick = function(){
+    loadingButtonOn();
+    pageCount += windowSize;
+    if(filterOn){
+        loadFilteredData(pageCount, windowSize, filterParams);
+    } else {
+        loadData(pageCount, windowSize);
     }
-});
+}
+
+function loadingButtonOn(){
+    document.querySelector("#load-more-button").style.display = "none";
+    document.querySelector("#spinner-bottom").style.display = "block";
+}
+
+function loadingButtonOff(){
+    document.querySelector("#spinner-bottom").style.display = "none";
+    document.querySelector("#load-more-button").style.display = "block";
+}

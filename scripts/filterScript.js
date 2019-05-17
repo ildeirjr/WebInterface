@@ -6,6 +6,9 @@ function toggleFilterButtonOn(){
     filterButton.style.color = "white";
     filterButton.querySelector('i').innerHTML = "close";
     document.querySelector("#search-form").style.display = "none";
+    document.querySelector("#obj-list").style.display = "none";
+    document.querySelector("#div-spinner").style.display = "block";
+    document.querySelector("#load-more-button").style.visibility = "visible";
 }
 
 function toggleFilterButtonOff(){
@@ -13,6 +16,9 @@ function toggleFilterButtonOff(){
     filterButton.style.color = "black";
     filterButton.querySelector('i').innerHTML = "filter_list";
     document.querySelector("#search-form").style.display = "block";
+    document.querySelector("#div-spinner").style.display = "none";
+    document.querySelector("#obj-list").style.display = "block";
+    document.querySelector("#load-more-button").style.visibility = "visible";
 }
 
 if (! dialog.showModal) {
@@ -22,6 +28,7 @@ filterButton.addEventListener('click', function() {
     if(!filterOn){
         dialog.showModal();
     } else {
+        loadingButtonOn();
         clearList();
         loadData(mode, pageCount, windowSize);
         toggleFilterButtonOff();

@@ -1,12 +1,3 @@
-<?php
-
-session_start();
-if(isset($_SESSION['token'])){
-  header("Location:home.php");
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,7 +71,7 @@ if(isset($_SESSION['token'])){
 	          <form name="search-object" id="search-object">
 	              <div class="control-group">
 	                <div class="form-group controls mb-0 pb-2">
-	                  <label>Nome do objeto</label>
+	                  <label>Descrição do bem</label>
 	                  <input class="form-control" name="name" id="name" type="text" data-validation-required-message="Please enter your email address.">
 	                  <p class="help-block text-danger"></p>
 	                </div>

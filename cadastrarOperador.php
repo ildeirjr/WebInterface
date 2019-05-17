@@ -45,6 +45,14 @@
 			<div class="mdl-dialog__actions">
 				<button type="button" class="mdl-button close">OK</button>
 			</div>
+		  </dialog>
+		  
+		  <dialog id="loading-dialog" class="mdl-dialog">
+			<div class="mdl-dialog__content">
+                <div id="div-spinner" class="container">
+                    <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active center"></div>
+                </div>
+			</div>
   		</dialog>
 
 		<main class="mdl-layout__content mdl-color--grey-100">

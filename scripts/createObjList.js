@@ -100,6 +100,9 @@ function clearList(){
 }
 
 function appendArrayToList(itemArray){
+    if(itemArray.length < windowSize){
+        document.querySelector("#load-more-button").style.visibility = "hidden";
+    }
     itemArray.forEach((element, index) => {
         list.appendChild(addElement(element, index + pageCount));
     });
@@ -112,10 +115,14 @@ function loadData(mode, page, windowSize){
         headers: {
             "Authorization": localStorage.getItem("token")
         },
-        cache: false,
-        async: false
+        cache: false
     }).done(function(response){
+        document.querySelector("#obj-list").style.display = "block";
+        document.querySelector("#filter-button").style.display = "block";
+        document.querySelector("#search-form").style.display = "block";
+        document.querySelector("#div-spinner").style.display = "none";
         appendArrayToList(JSON.parse(response));
+        loadingButtonOff();
     });
 }
 
@@ -129,9 +136,13 @@ function loadFilteredData(mode, page, windowSize, params){
             'num_page': page,
             'window_size': windowSize,
             'filter_params': params
-        }
+        },
+        cache: false
     }).done(function(response){
         appendArrayToList(JSON.parse(response));
+        loadingButtonOff();
+        document.querySelector("#div-spinner").style.display = "none";
+        document.querySelector("#obj-list").style.display = "block";
     });
 }
 
@@ -141,19 +152,34 @@ var mode = sessionStorage.getItem("mode");
 
 loadData(mode, pageCount, windowSize);
 
-// document.querySelector("#load-more-button").onclick = function(){
-//     pageCount += windowSize;
-//     loadData("non_deleted", pageCount, windowSize);
-// }
-
-$('main').scroll(function(){
-    //console.log(`ScrollTop: ${$('main').scrollTop()}, MainHeight: ${$('main').height()}, ListHeight: ${$('#obj-list').height()}`)
-    if($('main').scrollTop() >= $('#obj-list').height() - $(document).height()){
-        pageCount += windowSize;
-        if(filterOn){
-            loadFilteredData(mode, pageCount, windowSize, filterParams);
-        } else {
-            loadData(mode, pageCount, windowSize);
-        }
+document.querySelector("#load-more-button").onclick = function(){
+    loadingButtonOn();
+    pageCount += windowSize;
+    if(filterOn){
+        loadFilteredData(mode, pageCount, windowSize, filterParams);
+    } else {
+        loadData(mode, pageCount, windowSize);
     }
-});
+}
+
+function loadingButtonOn(){
+    document.querySelector("#load-more-button").style.display = "none";
+    document.querySelector("#spinner-bottom").style.display = "block";
+}
+
+function loadingButtonOff(){
+    document.querySelector("#spinner-bottom").style.display = "none";
+    document.querySelector("#load-more-button").style.display = "block";
+}
+
+// $('main').scroll(function(){
+//     console.log(`ScrollTop: ${$('main').scrollTop()}, MainHeight: ${$('main').height()}, ListHeight: ${$('#obj-list').height()}`)
+//     if($('main').scrollTop() >= $('#obj-list').height() - $(document).height()){
+//         pageCount += windowSize;
+//         if(filterOn){
+//             loadFilteredData(mode, pageCount, windowSize, filterParams);
+//         } else {
+//             loadData(mode, pageCount, windowSize);
+//         }
+//     }
+// });

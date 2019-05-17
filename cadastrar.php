@@ -45,6 +45,14 @@
 			<div class="mdl-dialog__actions">
 				<button type="button" class="mdl-button close">OK</button>
 			</div>
+		  </dialog>
+		  
+		  <dialog id="loading-dialog" class="mdl-dialog">
+			<div class="mdl-dialog__content">
+                <div id="div-spinner" class="container">
+                    <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active center"></div>
+                </div>
+			</div>
   		</dialog>
 
 		<main class="mdl-layout__content mdl-color--grey-100">
@@ -106,7 +114,7 @@
 						<div id="unity-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<select class="mdl-textfield__input" id="unity" name="unidade">
 								<option value="Centro de Educação Aberta e a Distância (CEAD)">Centro de Educação Aberta e a Distância (CEAD)</option>
-								<option value="87">Centro Desportivo da UFOP (CEDUFOP)</option>
+								<option value="Centro Desportivo da UFOP (CEDUFOP)">Centro Desportivo da UFOP (CEDUFOP)</option>
 								<option value="Escola de Direito, Turismo e Museologia (EDTM)">Escola de Direito, Turismo e Museologia (EDTM)</option>
 								<option value="Escola de Farmácia">Escola de Farmácia</option>
 								<option value="Escola de Minas">Escola de Minas</option>

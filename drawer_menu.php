@@ -1,6 +1,5 @@
 <div class="mdl-layout__drawer">
     <header class="demo-drawer-header">
-      <img src="images/user.jpg" class="demo-avatar">
       <div class="demo-avatar-dropdown">
         <span id="user-name-text"></span>
         <div class="mdl-layout-spacer"></div>

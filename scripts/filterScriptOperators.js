@@ -5,12 +5,18 @@ function toggleFilterButtonOn(){
     filterButton.style.backgroundColor = "red";
     filterButton.style.color = "white";
     filterButton.querySelector('i').innerHTML = "close";
+    document.querySelector("#obj-list").style.display = "none";
+    document.querySelector("#div-spinner").style.display = "block";
+    document.querySelector("#load-more-button").style.visibility = "visible";
 }
 
 function toggleFilterButtonOff(){
     filterButton.style.backgroundColor = "rgb(238,255,65)";
     filterButton.style.color = "black";
     filterButton.querySelector('i').innerHTML = "filter_list";
+    document.querySelector("#div-spinner").style.display = "none";
+    document.querySelector("#obj-list").style.display = "block";
+    document.querySelector("#load-more-button").style.visibility = "visible";
 }
 
 if (! dialog.showModal) {
@@ -20,6 +26,7 @@ filterButton.addEventListener('click', function() {
     if(!filterOn){
         dialog.showModal();
     } else {
+        loadingButtonOn();
         clearList();
         loadData(pageCount, windowSize);
         toggleFilterButtonOff();

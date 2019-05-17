@@ -155,6 +155,25 @@
   background: bottom right 15% no-repeat rgb(190, 247, 115);
 }
 
+.container { 
+  height: 100%;
+  position: relative; 
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* -ms-transform: translate(-50%, -50%); */
+  /* transform: translate(-50%, -50%); */
+}
+
+#div-load-more-button {
+  padding: 10px;
+  text-align: -webkit-center;
+}
+
 @media (max-width: 600px) {
   .show-object-container {
     display: flex;
@@ -181,5 +200,10 @@
 
   #card-container {
     display: block;
+  }
+
+  #card-1, #card-2, #card-3 {
+    width: 100%;
+    margin: 0;
   }
 }

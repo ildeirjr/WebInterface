@@ -24,7 +24,7 @@
 					<a id="restore-button" class="mdl-navigation__link" style="display: none;"><i class="material-icons">settings_backup_restore</i></a>
 					<!-- <a href="#" class="mdl-navigation__link">Link 2</a>
 					<a href="#" class="mdl-navigation__link">Link 3</a> -->
-					<form id="search-form" name="search-form">
+					<form id="search-form" name="search-form" style="display: none;">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 							<label class="mdl-button mdl-js-button mdl-button--icon" for="id-search-input">
 								<i class="material-icons">search</i>
@@ -106,7 +106,7 @@
 					<div class="filter-checkbox">
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="date-checkbox">
 							<input type="checkbox" id="date-checkbox" class="mdl-checkbox__input"/>
-							<label for="date-checkbox">Data de entrada</label>
+							<label for="date-checkbox">Data de compra</label>
 						</label>
 					</div>
 					<div id="filter-date-fields">
@@ -182,14 +182,20 @@
 			<button class="mdl-snackbar__action" type="button"></button>
 		</div>
 
-		<main class="mdl-layout__content mdl-color--grey-100" id="listar">	
-			<ul id="obj-list" class="demo-list-two mdl-list"></ul>
-			<button id="filter-button" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+		<main class="mdl-layout__content mdl-color--grey-100" id="listar">
+			<div id="div-spinner" class="container">
+				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active center"></div>
+			</div>
+			<ul id="obj-list" class="demo-list-two mdl-list" style="display: none;"></ul>
+			<button id="filter-button" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="display: none;">
   				<i class="material-icons">filter_list</i>
 			</button>
-			<!-- <div id="div-load-more-button">
+			<div id="div-load-more-button">
 				<button id="load-more-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Carregar mais itens</button>
-			</div> -->
+			</div>
+			<div id="spinner-bottom" style="text-align: -webkit-center;">
+				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+			</div>
 		</main>
 	</div>
 

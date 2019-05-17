@@ -1,6 +1,9 @@
 $('#form-cadastro').submit(function(e) {
     e.preventDefault();
 
+    let loadingDialog = document.querySelector("#loading-dialog");
+    loadingDialog.showModal();
+
     let that = $(this),
         url =  "http://"+Url.url+"edit/",
         type = 'post',
@@ -27,7 +30,6 @@ $('#form-cadastro').submit(function(e) {
         data['imgRename'] = "true";
     }
 
-    console.log(data);
 
     $.ajax({
         url: url,
@@ -35,11 +37,12 @@ $('#form-cadastro').submit(function(e) {
         headers: header,
         data: data
     }).done(function(response){
+        
 
-        console.log(response);
         let dialogTitle, dialogMsg;
 
         if(response == "23000"){
+            loadingDialog.close();
             dialogTitle = "Erro";
             dialogMsg = "O código informado já existe";
             showDialog(dialogTitle, dialogMsg);
@@ -47,13 +50,13 @@ $('#form-cadastro').submit(function(e) {
 
             if(data['imgSeted'] == "true"){
                 //WITH IMAGE
-                console.log(data);
                 $.ajax({
                     url: "http://"+Url.url+"uploadImg/",
                     type: type,
                     headers: header,
                     data: dataImg
                 }).done(function(response){
+                    loadingDialog.close();
                     if(response == "1"){
                         dialogTitle = "Sucesso!";
                         dialogMsg = "Objeto editado";
@@ -65,6 +68,7 @@ $('#form-cadastro').submit(function(e) {
                     }
                 });
             } else {
+                loadingDialog.close();
                 //WITHOUT IMAGE
                 dialogTitle = "Sucesso!";
                 dialogMsg = "Objeto editado";

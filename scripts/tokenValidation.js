@@ -5,6 +5,7 @@ $.ajax({
         "Authorization": localStorage.getItem("token")
     },
     async: false,
+    cache: false,
     statusCode: {
         401: function(){
             console.log("TOKENN");
