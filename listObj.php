@@ -106,7 +106,7 @@
 					<div class="filter-checkbox">
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="date-checkbox">
 							<input type="checkbox" id="date-checkbox" class="mdl-checkbox__input"/>
-							<label for="date-checkbox">Data de compra</label>
+							<label for="date-checkbox">Data de compra/cadastro</label>
 						</label>
 					</div>
 					<div id="filter-date-fields">
@@ -127,7 +127,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="filter-checkbox">
+					<div id="div-state-checkbox" class="filter-checkbox">
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="state-checkbox">
 							<input type="checkbox" id="state-checkbox" class="mdl-checkbox__input"/>
 							<label for="state-checkbox">Situação</label>
@@ -205,6 +205,7 @@
 	<script>
 		if(sessionStorage.getItem("mode") == "deleted"){
 			document.querySelector(".mdl-layout-title").innerHTML = "Objetos excluídos";
+			document.querySelector("#div-state-checkbox").style.display = "none";
 		} else if(sessionStorage.getItem("mode") == "non_deleted"){
 			document.querySelector(".mdl-layout-title").innerHTML = "Listar objetos";
 		}

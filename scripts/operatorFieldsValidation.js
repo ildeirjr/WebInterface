@@ -25,7 +25,7 @@ function dataValidation(){
     emailInput.onkeypress = function() {
         document.querySelector("#email-error-msg").innerHTML = "Endereço de e-mail inválido"
     }
-    if(typeof passCheckbox !== 'undefined' && passCheckbox.checked){
+    if((typeof passCheckbox !== 'undefined' && passCheckbox.checked) || typeof passCheckbox == 'undefined'){
         if(passwordInput.value == ""){
             passwordField.classList.add("is-invalid");
         }

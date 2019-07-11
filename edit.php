@@ -92,7 +92,7 @@
 
 						<div id="date-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<input class="mdl-textfield__input" type="date" name="data_entrada" id="date" value="">
-							<label class="mdl-textfield__label" for="data">Data de compra</label>
+							<label class="mdl-textfield__label" for="data">Data de compra/cadastro</label>
 							<span id="date-error-msg" class="mdl-textfield__error">Data inválida</span>
 						</div>
 

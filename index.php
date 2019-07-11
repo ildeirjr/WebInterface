@@ -120,12 +120,12 @@
             <p class="lead">Este sistema foi feito tomando como base os objetos de patrimônio do Instituto de Ciências Exatas e Aplicadas (ICEA) da Universidade Federal de Ouro Preto (UFOP).</p>
           </div>
         </div>
-        <div class="text-center mt-4">
+        <!-- <div class="text-center mt-4">
           <a class="btn btn-xl btn-outline-light" href="#">
             <i class="fa fa-download mr-2"></i>
             Baixe o app!
           </a>
-        </div>
+        </div> -->
       </div>
     </section>
 

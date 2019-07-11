@@ -130,7 +130,7 @@
                     </div>
                     <div class="show-object-item">
                         <div class="show-object-item-primary">
-                            Data de compra
+                            Data de compra/cadastro
                         </div>
                         <div id="item-date" class="show-object-item-secondary">
                         </div>

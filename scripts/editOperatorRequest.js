@@ -34,10 +34,12 @@ $('#form-cadastro').submit(function(e) {
         } else if(response == "00000"){
             dialogTitle = "Sucesso!";
             dialogMsg = "Operador editado";
-            localStorage.setItem("nome", data['nome']);
-            localStorage.setItem("email", data['email']);
-            localStorage.setItem("data_nasc", data['data_nasc']);
-            localStorage.setItem("depto", data['depto']);
+            if(data['emailAntigo'] == localStorage.getItem("email")){
+                localStorage.setItem("nome", data['nome']);
+                localStorage.setItem("email", data['email']);
+                localStorage.setItem("data_nasc", data['data_nasc']);
+                localStorage.setItem("depto", data['depto']);
+            }
             showDialog(dialogTitle, dialogMsg);
         } else {
             dialogTitle = "Erro";
